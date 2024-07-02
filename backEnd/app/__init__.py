@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 
-from core import DBStorage, new, save, delete, reload, close, get, count
+from crud.crud import new, save, delete, reload, close, get, count
+from core.database import DBStorage
 
 storage = DBStorage()
 reload()
