@@ -11,6 +11,7 @@ class Hospital(BaseModel, Base):
     name = Column(String(255), nullable=False)
     address = Column(String(255), nullable=False)
     contact_number = Column(String(50))
-    users = relationship('User', cascade='all, delete, delete-orphan', back_populates='hospital')
-    requests = relationship('Request', back_populates='hospital')
-    hospital_inventory = relationship('HospitalInventory', back_populates='hospital')
+
+    hospital_inventory = relationship('HospitalInventory', backref='hospitals')
+    users = relationship('User', cascade='all, delete, delete-orphan', backref='hospitals')
+    requests = relationship('Request', backref='hospitals')

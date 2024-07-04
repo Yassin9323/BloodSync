@@ -11,7 +11,7 @@ class BloodBank(BaseModel, Base):
     name = Column(String(255), nullable=False)
     address = Column(String(255), nullable=False)
     contact_number = Column(String(50))
-
-    users = relationship('User', back_populates='blood_bank')
-    requests = relationship('Request', back_populates='blood_bank')
-    blood_bank_inventory = relationship('BankInventory', back_populates='blood_bank')
+    
+    blood_bank_inventory = relationship('BankInventory', backref='blood_banks')
+    users = relationship('User', backref='blood_banks')
+    requests = relationship('Request', backref='blood_banks')
