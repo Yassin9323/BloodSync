@@ -4,6 +4,7 @@
 import cmd
 from datetime import datetime
 import app
+from app.models.base_model import BaseModel
 from app.models.users import User
 from app.models.hospitals import Hospital
 from app.models.blood_banks import BloodBank
@@ -15,8 +16,9 @@ from app.models.transactions import Transaction
 
 import shlex  # for splitting the line along spaces except in double quotes
 
-classes = {"Amenity": Amenity, "BaseModel": BaseModel, "City": City,
-        "Place": Place, "Review": Review, "State": State, "User": User}
+classes = {"User": User, "BaseModel": BaseModel, "Hospital": Hospital,
+        "BloodBank": BloodBank, "BloodType": BloodType, "HospitalInventory": HospitalInventory,
+        "BankInventory": BankInventory, "Request": Request, "Transaction": Transaction}
 
 
 class HBNBCommand(cmd.Cmd):
@@ -70,8 +72,8 @@ class HBNBCommand(cmd.Cmd):
             return False
         print(instance.id)
         instance.save()
-        x = models.storage.count("Place")
-        print(x)
+        # x = app.storage.count("Place")
+        # print(x)
 
     def do_show(self, arg):
         """Prints an instance as a string based on the class and id"""
@@ -82,8 +84,8 @@ class HBNBCommand(cmd.Cmd):
         if args[0] in classes:
             if len(args) > 1:
                 key = args[0] + "." + args[1]
-                if key in models.storage.all():
-                    print(models.storage.all()[key])
+                if key in app.storage.all():
+                    print(app.storage.all()[key])
                 else:
                     print("** no instance found **")
             else:
@@ -99,9 +101,9 @@ class HBNBCommand(cmd.Cmd):
         elif args[0] in classes:
             if len(args) > 1:
                 key = args[0] + "." + args[1]
-                if key in models.storage.all():
-                    models.storage.all().pop(key)
-                    models.storage.save()
+                if key in app.storage.all():
+                    app.storage.all().pop(key)
+                    app.storage.save()
                 else:
                     print("** no instance found **")
             else:
@@ -114,9 +116,9 @@ class HBNBCommand(cmd.Cmd):
         args = shlex.split(arg)
         obj_list = []
         if len(args) == 0:
-            obj_dict = models.storage.all()
+            obj_dict = app.storage.all()
         elif args[0] in classes:
-            obj_dict = models.storage.all(classes[args[0]])
+            obj_dict = app.storage.all(classes[args[0]])
         else:
             print("** class doesn't exist **")
             return False
@@ -138,7 +140,7 @@ class HBNBCommand(cmd.Cmd):
         elif args[0] in classes:
             if len(args) > 1:
                 k = args[0] + "." + args[1]
-                if k in models.storage.all():
+                if k in app.storage.all():
                     if len(args) > 2:
                         if len(args) > 3:
                             if args[0] == "Place":
@@ -152,8 +154,8 @@ class HBNBCommand(cmd.Cmd):
                                         args[3] = float(args[3])
                                     except:
                                         args[3] = 0.0
-                            setattr(models.storage.all()[k], args[2], args[3])
-                            models.storage.all()[k].save()
+                            setattr(app.storage.all()[k], args[2], args[3])
+                            app.storage.all()[k].save()
                         else:
                             print("** value missing **")
                     else:
