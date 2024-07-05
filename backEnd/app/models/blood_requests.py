@@ -14,4 +14,3 @@ class Request(BaseModel, Base):
     blood_bank_id = Column(String(60), ForeignKey('blood_banks.id'), nullable=False)
 
     transactions = relationship('Transaction', backref='requests')
-#blood_type_id="5c060dd2-25dc-424c-9356-addc789ee9f2"  units=5 hospital_id="9a27b071-37eb-44de-ba54-1499729e6e85" blood_bank_id="42ed083e-b389-4ee4-bba3-eec3a19ae693"
