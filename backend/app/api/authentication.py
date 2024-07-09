@@ -1,4 +1,4 @@
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, HTTPException, Form
 from app.core.database import DBStorage
 from app.models.users import User
 from app.schemas.user import UserBase
@@ -8,7 +8,7 @@ router = APIRouter(tags=["Authentication"])
 db_storage = DBStorage()
 
 @router.post("/login")
-def login(email: str, password: str):
+def login(email: str = Form(...), password: str = Form(...)):
     user = db_storage.get_by_email(email)
     if user:
         if verify_password(password, user.password):
