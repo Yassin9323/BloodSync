@@ -1,28 +1,21 @@
 <div class="container">
     <div class="login-card">
         <div class="logo-section">
-
-           
             <img src="/static/src/assets/images/logo.svg" alt="BloodTrac Logo" class="logo">
             <h1>BloodSync</h1>
-            <!-- <script> 
-                $('h1').hide();
-            </script> -->
-           
         </div>
         <div class="login-section">
             <h2>Log In</h2>
             <p>Join to access features</p>
-            <!-- <form action="/login" method="post"></form> -->
-            <form id="login-form" method="POST">
+
+            <form id="login-form" action="/login" method="POST">
                 <div class="boxm">
                     <label for="email">Email</label><br>
-                    <input type="email" id="email" placeholder="Enter your  email">
+                    <input type="email" name="email" id="email" placeholder="Enter your email">
                     
                     <label for="password">Password</label>
-                    <input type="password" id="password" placeholder="Enter your password">
+                    <input type="password" name="password" id="password" placeholder="Enter your password">
                     
-                
                     <button type="submit">Log in</button>
                 </div>
             </form>
