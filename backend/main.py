@@ -10,9 +10,9 @@ app = FastAPI()
 current_dir = os.path.dirname(os.path.abspath(__file__))
 
 # Define the path to the static files and templates
-static_files_path = os.path.join(current_dir, 'frontend/public')
-app.mount("/static", StaticFiles(directory="public"), name="static")
-templates = Jinja2Templates(directory="frontend/src/pages/html")
+# static_files_path = os.path.join(current_dir, 'frontend/public')
+app.mount("/static", StaticFiles(directory="../frontend"), name="static")
+templates = Jinja2Templates(directory="../frontend")
 # Include the router from the auth module
 app.include_router(router)
 
