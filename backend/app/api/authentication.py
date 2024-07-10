@@ -12,6 +12,7 @@ db_storage = DBStorage()
 @router.post("/login")
 def login(email: str = Form(...), password: str = Form(...)):
     user = db_storage.get_by_email(email)
+    print(user)
     if user:
         if verify_password(password, user.password):
             return RedirectResponse(url="/dashboard", status_code=303)
