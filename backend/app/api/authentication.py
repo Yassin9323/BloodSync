@@ -3,6 +3,8 @@ from app.core.database import DBStorage
 from app.models.users import User
 from app.schemas.user import UserBase
 from app.utils.hashing import hash_password, verify_password
+from fastapi.responses import RedirectResponse
+
 
 router = APIRouter(tags=["Authentication"])
 db_storage = DBStorage()
@@ -12,7 +14,8 @@ def login(email: str = Form(...), password: str = Form(...)):
     user = db_storage.get_by_email(email)
     if user:
         if verify_password(password, user.password):
-            return {"message": "Login successful"}
+            return RedirectResponse(url="/dashboard", status_code=303)
+            # return {"message": "Login successful"}
 
     print("Login failed: Invalid credentials")
     raise HTTPException(status_code=401, detail="Invalid credentials")

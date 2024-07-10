@@ -19,7 +19,8 @@
             <div class="login-section">
                 <h2>Log In</h2>
                 <p>Join to access features</p>
-                <form>
+                <!-- <form action="/login" method="post"></form> -->
+                <form id="login-form" method="POST">
                     <div class="boxm">
                         <label for="email">Email</label><br>
                         <input type="email" id="email" placeholder="Enter your  email">
@@ -27,6 +28,7 @@
                         <label for="password">Password</label>
                         <input type="password" id="password" placeholder="Enter your password">
                         
+                    
                         <button type="submit">Log in</button>
                     </div>
                 </form>
@@ -44,7 +46,9 @@
             </div>
         </div>
     </div>
-    <div id="login-result"></div>
+    <div id="login-result">
+        Successful
+    </div>
     <script src="/static/scripts.js"></script>
 </body>
 </html>
