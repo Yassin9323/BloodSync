@@ -3,9 +3,9 @@ $(document).ready(function() {
     const routes = {
       'hospital-dashboard': { page: 'hospitalDashboardPage', style: 'hospitalDashboard.css' },
       'blood-bank-dashboard': { page: 'bloodBankDashboardPage', style: 'bloodBankDashboard.css' },
-      'login': { page: 'loginPage', style: 'login.css' },
-      'signup': { page: 'signupPage', style: 'signup.css' },
-      '': { page: 'loginPage', style: 'login.css' } // Default to login page
+      'login': { page: 'login', style: 'login.css' },
+      'signup': { page: 'signup', style: 'signup.css' },
+      '': { page: 'login', style: 'login.css' } // Default to login page
     };
   
     // Function to navigate to a page and load the corresponding stylesheet
@@ -18,22 +18,23 @@ $(document).ready(function() {
     }
 
     $('#login-form').submit(function(event) {
-        event.preventDefault(); // Prevent the form from submitting the traditional way
-        var username = $('#email').val();
-        var password = $('#password').val();
-        
-        $.ajax({
-            url: '/login',
-            type: 'POST',
-            data: {email: email, password: password},
-            success: function(response) {
-                $('#root').html('<p>' + response.message + '</p>');
-            },
-            error: function(response) {
-                $('#root').html('<p>' + response.responseJSON.detail + '</p>');
-            }
-        });
-    });
+      event.preventDefault(); // Prevent the form from submitting the traditional way
+      var email = $('#email').val();
+      var password = $('#password').val();
+      
+      $.ajax({
+          url: '/login',
+          type: 'POST',
+          data: {email: email, password: password},
+          success: function(response) {
+              window.location.href = '/dashboard';
+          },
+          error: function(response) {
+              window.location.href = '/error';
+          }
+      });
+  });
+
   
     // // Simple routing logic
     // const path = window.location.pathname.replace('/', '');
