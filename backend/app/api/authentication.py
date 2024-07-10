@@ -31,7 +31,7 @@ def create_user(request: UserBase):
             password=hashed_password,
             role=request.role
         )
-        new_user.save()
+        db_storage.save(new_user) # Add, commit, and refresh the new user in one step
         return {"message": "Registration successful."}
 
     raise HTTPException(status_code=401, detail="Invalid credentials")
