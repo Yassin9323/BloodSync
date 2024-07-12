@@ -1,5 +1,7 @@
 from fastapi import FastAPI, Request
 from app.api.authentication import router
+from app.api.bloodbank import bloodbank_router
+from app.api.hospital import hospital_router
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from fastapi.responses import HTMLResponse
@@ -15,6 +17,10 @@ app.mount("/static", StaticFiles(directory="../frontend"), name="static")
 templates = Jinja2Templates(directory="../frontend/public")
 # Include the router from the auth module
 app.include_router(router)
+app.include_router(bloodbank_router)
+app.include_router(hospital_router)
+
+
 
 
 @app.get("/")
@@ -29,6 +35,11 @@ async def login_page(request: Request):
 @app.get("/dashboard", response_class=HTMLResponse)
 async def dashboard_page(request: Request):
     return templates.TemplateResponse("index.html", {"request": request})
+
+@app.get("/register", response_class=HTMLResponse)
+async def register_page(request: Request):
+    return templates.TemplateResponse("index.html", {"request": request})
+
 
 @app.get("/error", response_class=HTMLResponse)
 async def error_page(request: Request):

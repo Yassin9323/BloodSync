@@ -13,6 +13,7 @@ from app.models.bloodBanks_Inventory import BankInventory
 from app.models.transactions import Transaction
 from app.models.users import User
 from app.models.blood_requests import Request
+from sqlalchemy.exc import OperationalError, ProgrammingError
 
 
 classes = {"Hospital": Hospital, "User": User,
@@ -44,20 +45,22 @@ class DBStorage:
         new_dict = {}
         for clss in classes:
             if cls is None or cls is classes[clss] or cls is clss:
-                objs = self.__session.query(classes[clss]).all()
-                for obj in objs:
-                    key = f"{obj.__class__.__name__}.{obj.id}"
-                    new_dict[key] = obj
-                    # print(new_dict[key])
-        # update User c9cc30a1-50c0-41d2-8b56-59963276abba password Yassin
-        # x = "c9cc30a1-50c0-41d2-8b56-59963276abba"
-        # print(new_dict[User.__class__.__name__ + '.' + x])
-        # print(new_dict)
-        return new_dict
+                try:
+                    objs = self.__session.query(cls).all()
+                    for obj in objs:
+                        key = f"{obj.__class__.__name__}.{obj.id}"
+                        new_dict[key] = obj
+                        return new_dict
+                except Exception as e:
+                    self.__session.rollback()
+                    raise e
+                finally:
+                    self.__session.close()
+        
 
-    def new(self, obj):
-        """Add the object to the current database session"""
-        self.__session.add(obj)
+    # def new(self, obj):
+    #     """Add the object to the current database session"""
+    #     self.__session.add(obj)
 
     def save(self, obj=None):
         """Commit all changes of the current database session"""
@@ -78,7 +81,7 @@ class DBStorage:
         self.__session.close()
         self.__session = scoped_session(sessionmaker(bind=self.__engine, expire_on_commit=False))
 
-    def close(self):
+    def remove(self):
         """Call remove() method on the private session attribute"""
         self.__session.remove()
 
@@ -97,5 +100,28 @@ class DBStorage:
         instances = self.all(cls)
         return len(instances)
 
-    def get_by_email(self, email: str) -> User:
-        return self.__session.query(User).filter(User.email == email).first()
+    def get_by_email(self, email):
+        try:
+            user = self.__session.query(User).filter(User.email == email).first()
+            return user
+        except OperationalError as op_err:
+            # Handle operational errors like lost connection
+            self.__session.rollback()
+            raise op_err
+        except ProgrammingError as prog_err:
+            # Handle programming errors like commands out of sync
+            self.__session.rollback()
+            raise prog_err
+        except Exception as e:
+            # General error handling
+            self.__session.rollback()
+            raise e
+        finally:
+            self.__session.close()
+            
+    def rollback(self):
+            self.__session.rollback()
+
+
+    
+db_storage = DBStorage()

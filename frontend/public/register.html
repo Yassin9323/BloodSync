@@ -1,0 +1,51 @@
+ <div class="container">
+        <div class="register-section">
+            <div class="logo-section">
+                <img src="/static/src/assets/images/red blood.png" alt="BloodSync logo" class="logo">
+                <h1>BloodSync</h1>
+            </div>
+            <h2>Register</h2>
+            <!-- <p>Join to access features</p> -->
+            <div class="boxm"></div>
+                <form id="register-form" action="/register" method="POST" novalidate>                
+                    <label for="username">Username</label><br>
+                    <input type="text" name="username" id="username" placeholder="Enter your username..ex(Cairo BloodBank Admin)" required>
+                    <span class="error-message" id="usernameError">Username is required</span>
+
+
+                    <label for="email">Email</label><br>
+                    <input type="email" name="email" id="email" placeholder="Enter your email" required>
+                    <span class="error-message" id="emailError">Valid email is required</span>
+
+
+                    <label for="role">Role</label><br>
+                    <select id="role" name="role" required>
+                        <option value="blood-bank-admin">Blood Bank Admin</option>
+                        <option value="hospital-admin">Hospital Admin</option>
+                    </select>
+
+                    <!-- <div id="hospitalNames" class="hidden">
+                        <label for="Available Hospitals">Select Hospital</label><br>
+                        <select id="hospital-names" name="hospital-names">
+                            <option value="Cairo Hospital">Cairo Hospital</option>
+                            <option value="AinShams Hospital">AinShams Hospital</option>
+                            <option value="Giza Hospital">Giza Hospital</option>
+                            <option value="Helwan Hospital">Helwan Hospital</option>
+                        </select><br><br>
+                    </div> -->
+            
+                    <span class="error-message" id="roleError">Role is required</span>
+                    
+                    <label for="password">Password</label>
+                    <input type="password" name="password" id="password" placeholder="Enter your password"required>
+                    <span class="error-message" id="passwordError">Password is required</span>
+
+                    
+                    <button type="submit">Register</button>
+                </form>
+                <div id="register-result"> 
+                    
+                </div>
+            </div>
+        </div>
+    </div>

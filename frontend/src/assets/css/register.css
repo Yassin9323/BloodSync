@@ -1,5 +1,24 @@
+body {
+    margin: 0;
+    font-family: 'Arial', sans-serif;
+    background-color: #1e1e1e;
+    background-size: cover;
+    background-position: center;
+    color: #ffffff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
 
-.login-section {
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+}
+.register-section {
     background-color: #2b2b2b;
     border-radius: 20px;
     padding: 40px;
@@ -9,30 +28,21 @@
     text-align: left;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
     position: relative;
-    min-height: 650px;
-    width: 300px; /* Adjusted width */
+    height: 500px;
+    width: 70%; /* Adjusted width */
 }
 .logo-section{
     display: flex;
 }
 
-div{
-    z-index: 2;
-}
-
-.login-section h1 {
+.register-section h1 {
     font-size: 40px; /* Adjusted size */
-    margin: 10px;
-    max-width: 80%;
+    margin: 10px 0;
 }
 
-.sub-header{
-    margin-top: 90px;
-    text-align: center;
-}
-.login-section h2 {
+.register-section h2 {
     font-size: 25px; /* Adjusted size */
-    margin-bottom: 10px;
+    margin-bottom: 20px;
     text-align: center;
 }
 
@@ -40,10 +50,9 @@ div{
     display: flex;
     flex-direction: column;
     align-items: center; /* Center aligned form elements */
-    margin-top: 120px;
 }
 
-.login-section label {
+.register-section label {
     font-size: 16px; /* Adjusted size */
     margin-bottom: 10px;
     padding: 5px;
@@ -52,7 +61,7 @@ div{
     color: #aaaaaa;
 }
 
-.login-section input {
+.register-section input {
     padding: 10px;
     margin-bottom: 15px;
     border: none;
@@ -70,15 +79,33 @@ div{
     color: #e50914;
     font-size: 0.875em;
     margin-top: -10px;
-    margin-bottom: 10px;
+    margin-bottom: 15px;
     text-align: right;
-    max-width: 100%;
+    max-width: 90%;
 }
 
-.login-section button {
+
+.register-section select {
     padding: 10px;
-    margin-top: 10px; 
-    margin-left: 5px;
+    margin-bottom: 15px;
+    border: none;
+    border-radius: 30px; /*Adjusted border radius*/
+    background-color: #3a3a3a;
+    border-color: #3a3a3a;
+    color: #ffffff;
+    font: bold;
+    font-size:medium;
+    width: 100%; /* Full width input */
+    max-width: 95%; /* Max width for input */
+    text-align: center; /* Center aligned placeholder text */
+}
+
+
+
+.register-section button {
+    padding: 10px;
+    margin-top: 20px;
+    /* margin-left: 20px; */
     border: none;
     border-radius: 30px; /* Adjusted border radius */
     background-color: #000000;
@@ -88,60 +115,4 @@ div{
     width: 100%; /* Full width button */
     max-width: 100%; /* Max width for button */
     text-align: center;
-}
-
-
-.boxt, .boxb {
-    background-color: #2b2b2b;
-    position: absolute;
-    width: 20%;
-    height: 40%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 1;
-
-}
-
-.boxt {
-    top: 31px;
-    right: 300px;
-    border-top-right-radius: 200px;
-    border-bottom-right-radius: 200px;
-}
-
-.boxb {
-    bottom: 31px;
-    left: 300px;
-    border-top-left-radius: 200px;
-    border-bottom-left-radius: 200px;
-}
-
-.boxt img, .boxb img {
-    max-width: 80%;
-    max-height: 80%;
-}
-
-@media (max-width: 768px) {
-    .boxt, .boxb {
-        width: 40%;
-        height: 40%;
-        border-radius: 150px;
-    }
-
-    .boxt {
-        top: 10px;
-        right: 10px;
-    }
-
-    .boxb {
-        bottom: 10px;
-        left: 10px;
-    }
-}
-
-@media (max-width: 480px) {
-    .boxt, .boxb {
-        display: none; /* Hide these elements on very small screens */
-    }
 }

@@ -5,6 +5,8 @@ class UserBase(BaseModel):
     email: EmailStr
     password: str
     role: str
+    hospital_id: str
+    blood_bank_id: str
 
 class UserCreate(UserBase):
     password: str
