@@ -1,0 +1,17 @@
+create BloodBank name="Cairo-Blood-Bank" address="cairo" contact_number="02131233123"
+efcf37e7-31b5-469b-b00a-ecf940d4b0be
+
+
+create BloodBank name="Alex-Blood-Bank" address="Alex" contact_number="0s2131233123"
+75f047f3-c5bd-4b21-bb38-a93b59570ab3
+
+
+show BloodBank 75f047f3-c5bd-4b21-bb38-a93b59570ab3
+
+
+
+destroy BloodBank efcf37e7-31b5-469b-b00a-ecf940d4b0be
+
+
+
+update BloodBank 75f047f3-c5bd-4b21-bb38-a93b59570ab3 address ALX

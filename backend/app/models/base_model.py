@@ -44,13 +44,6 @@ class BaseModel:
         """String representation of the BaseModel class"""
         return "[{:s}] ({:s}) {}".format(self.__class__.__name__, self.id,
                                         self.__dict__)
-
-    def save(self):
-        """updates the attribute 'updated_at' with the current datetime"""
-        self.updated_at = datetime.utcnow()
-        app.storage.new(self)
-        app.storage.save(self)
-
     def to_dict(self):
         """returns a dictionary containing all keys/values of the instance"""
         new_dict= {}
@@ -64,7 +57,3 @@ class BaseModel:
         if "_sa_instance_state" in new_dict.keys():
             del new_dict["_sa_instance_state"]
         return new_dict
-        
-    def delete(self):
-        """delete the current instance from the storage"""
-        app.storage.delete(self)

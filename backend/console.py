@@ -2,8 +2,10 @@
 """ console """
 
 import cmd
+from sqlalchemy.orm import Session
+from app.core import crud 
+from app.core.database import SessionLocal
 from datetime import datetime
-import app
 from app.models.base_model import BaseModel
 from app.models.users import User
 from app.models.hospitals import Hospital
@@ -16,14 +18,16 @@ from app.models.transactions import Transaction
 
 import shlex  # for splitting the line along spaces except in double quotes
 
+db = SessionLocal()
+
 classes = {"User": User, "BaseModel": BaseModel, "Hospital": Hospital,
         "BloodBank": BloodBank, "BloodType": BloodType, "HospitalInventory": HospitalInventory,
         "BankInventory": BankInventory, "Request": Request, "Transaction": Transaction}
 
 
-class HBNBCommand(cmd.Cmd):
+class BloodSync(cmd.Cmd):
     """ HBNH console """
-    prompt = '(hbnb) '
+    prompt = '(bloodsync) '
 
     def do_EOF(self, arg):
         """Exits console"""
@@ -58,7 +62,7 @@ class HBNBCommand(cmd.Cmd):
                 new_dict[key] = value
         return new_dict
 
-    def do_create(self, arg):
+    def do_create(self, arg, db: Session = db):
         """Creates a new instance of a class"""
         args = arg.split()
         if len(args) == 0:
@@ -70,10 +74,8 @@ class HBNBCommand(cmd.Cmd):
         else:
             print("** class doesn't exist **")
             return False
+        crud.save(instance)
         print(instance.id)
-        instance.save()
-        # x = app.storage.count("Place")
-        # print(x)
 
     def do_show(self, arg):
         """Prints an instance as a string based on the class and id"""
@@ -82,13 +84,10 @@ class HBNBCommand(cmd.Cmd):
             print("** class name missing **")
             return False
         if args[0] in classes:
-            print("\n\n\nexists\n\n\n")
             if len(args) > 1:
-                key = args[0] + "." + args[1]
-                # print("\n\n\nKey\n\n\n")
-                if key in app.storage.all():
-                    # print("\n\n\nPrint\n\n\n")
-                    print(app.storage.all()[key])
+                key = args[0] + "." + args[1]                
+                if key in crud.all():                    
+                    print(crud.all()[key])
                 else:
                     print("** no instance found **")
             else:
@@ -104,14 +103,14 @@ class HBNBCommand(cmd.Cmd):
         elif args[0] in classes:
             if len(args) > 1:
                 key = args[0] + "." + args[1]
-                if key in app.storage.all():
+                if key in crud.all():
                     try:
-                        x = app.storage.all()[key]
-                        app.storage.delete(x)
+                        x = crud.all()[key]
+                        db.delete(x)
                     except Exception as e:
                         print(e)
-                    app.storage.save()
-                    # destroy Transaction 7280ac36-4e45-4433-a5b8-ce4140b19611
+                    # print("\n\n\n\nOne\n\n\n\n")
+                    db.commit()
                 else:
                     print("** no instance found **")
             else:
@@ -124,61 +123,40 @@ class HBNBCommand(cmd.Cmd):
         args = shlex.split(arg)
         obj_list = []
         if len(args) == 0:
-            obj_dict = app.storage.all()
+            obj_dict = crud.all()
         elif args[0] in classes:
-            obj_dict = app.storage.all(classes[args[0]])
+            obj_dict = crud.all(args[0])
         else:
             print("** class doesn't exist **")
             return False
         for key in obj_dict:
             obj_list.append(str(obj_dict[key]))
-        # print("[", end="")
-        # print(", ".join(obj_list), end="")
-        # print("]")
         print(obj_list)
 
     def do_update(self, arg):
         """Update an instance based on the class name, id, attribute & value"""
         args = shlex.split(arg)
-        integers = ["number_rooms", "number_bathrooms", "max_guest",
-                    "price_by_night"]
-        floats = ["latitude", "longitude"]
         if len(args) == 0:
             print("** class name missing **")
         elif args[0] in classes:
             if len(args) > 1:
                 k = args[0] + "." + args[1]
-                if k in app.storage.all():
+                if k in crud.all():
                     if len(args) > 2:
                         if len(args) > 3:
-                            if args[0] == "Place":
-                                if args[2] in integers:
-                                    try:
-                                        args[3] = int(args[3])
-                                    except:
-                                        args[3] = 0
-                                elif args[2] in floats:
-                                    try:
-                                        args[3] = float(args[3])
-                                    except:
-                                        args[3] = 0.0
-                            obj = app.storage.all()[k]
-                            obj = obj.__dict__
+                            obj = crud.all()[k]
+                            obj2 = obj.__dict__
                             # print(obj.__dict__)
                             found = False
-                            for key, value in obj.items():
+                            for key, value in obj2.items():
                                 # print(key)
                                 if args[2] == key:
-                                    setattr(app.storage.all()[k], args[2], args[3])
+                                    setattr(obj, args[2], args[3])
                                     found = True
                                     break
                             if not found:
-                                print("No attr found.")
-
-                            app.storage.all()[k].save()
-                            # print(args[0])
-                            # print(app.storage.get(classes[args[0]], args[1]))
-                            # update User c9cc30a1-50c0-41d2-8b56-59963276abba password Yassin
+                                print("No attr found.")                            
+                            crud.save(obj)
                         else:
                             print("** value missing **")
                     else:
@@ -191,4 +169,4 @@ class HBNBCommand(cmd.Cmd):
             print("** class doesn't exist **")
 
 if __name__ == '__main__':
-    HBNBCommand().cmdloop()
+    BloodSync().cmdloop()
