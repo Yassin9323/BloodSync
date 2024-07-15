@@ -1,34 +1,30 @@
-<div class="container">
-        <div class="login-section">
-            <div class="logo-section">
-                <img src="/static/src/assets/images/red blood.png" alt="BloodSync Logo" class="logo">
-                <h1>BloodSync</h1>
+            <div class="container">
+                <div class="login-section">
+                    <div class="login-card">
+                        <div class="logo">
+                            <img src="/static/src/assets/images/red blood.png" alt="BloodSync Logo">
+                            <h1>BloodSync</h1>
+                        </div>
+                        <div class="login-fields">
+                            <h2>Login</h2>
+                            <p>Access features</p>
+                            <form id="login-form">
+                                <div class="fields">
+                                    <div class="box">
+                                        <label for="email">Email</label>
+                                        <input type="email" name="email" id="email" placeholder="Enter your email">
+                                    </div>
+                                    <div class="box">
+                                        <label for="password">Password</label>
+                                        <input type="password" name="password" id="password" placeholder="Enter your password">
+                                    </div>
+                                    <div id="error-message"></div>
+                                </div>
+                                <div class="login-btn">
+                                    <button type="submit">Log in</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="sub-header">
-                <h2>Log In</h2>
-                <p>Join to access features</p>
-             </div>   
-            <div class="boxm">
-                <form id="login-form" action="/login" method="POST" novalidate>
-                    <label for="email">Email</label><br>
-                    <input type="email" name="email" id="email" placeholder="Enter your email" required>
-                    <span class="error-message" id="emailError">Valid email is required</span>
-
-                    <label for="password">Password</label>
-                    <input type="password" name="password" id="password" placeholder="Enter your password" required>
-                    <span class="error-message" id="passwordError">Password is required</span>
-                    
-                    <button type="submit">Log in</button>
-                </form>
-            </div>
-        </div>
-        <div class="boxt">
-                <img src="/static/src/assets/images/doctor.png" alt="Doctor Image">
-        </div>
-
-        <div class="boxb">
-                <img src="/static/src/assets/images/bottom.png" alt="Dashboard Image">
-        </div>
-    
-</div>
-<div id="login-result"> </div>

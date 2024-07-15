@@ -1,147 +1,186 @@
+:root {
+    --main-container: #F5F7FA;
+    --little-container: #E3FCEF;
+    --border: #50E3C2;
+    --headers: #2C3E50;
+    --buttons: #3A9D8C;
+    --text: #FFFFFF;
+    }
+
+.container {
+    height: 100vh;
+    width: 90%;
+    background-color: var(--main-container);
+}
 
 .login-section {
-    background-color: #2b2b2b;
-    border-radius: 20px;
-    padding: 40px;
+    width: 100%;
+    position: relative;
+    height: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
-    text-align: left;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+    justify-content: space-around;
+}
+
+.login-card {
     position: relative;
-    min-height: 650px;
-    width: 300px; /* Adjusted width */
-}
-.logo-section{
-    display: flex;
-}
-
-div{
-    z-index: 2;
-}
-
-.login-section h1 {
-    font-size: 40px; /* Adjusted size */
-    margin: 10px;
-    max-width: 80%;
-}
-
-.sub-header{
-    margin-top: 90px;
-    text-align: center;
-}
-.login-section h2 {
-    font-size: 25px; /* Adjusted size */
-    margin-bottom: 10px;
-    text-align: center;
-}
-
-.boxm{
+    height: 95%;
+    width: 40%;
+    background-color: var(--little-container);
+    border-radius: 2%;
     display: flex;
     flex-direction: column;
-    align-items: center; /* Center aligned form elements */
-    margin-top: 120px;
+    justify-content: space-between;
+    border-radius: 20px;
 }
 
-.login-section label {
-    font-size: 16px; /* Adjusted size */
-    margin-bottom: 10px;
-    padding: 5px;
-    align-self: flex-start; /* Left align label */
-    left: 100px;
-    color: #aaaaaa;
+.login-card::before {
+    content: '';
+    position: absolute;
+    right: -60%;
+    width: 65%;
+    height: 55%;
+    background-color: var(--little-container);
+    background-image: url(../images/doctor.png);
+    background-size: auto;
+    background-position: center center;    
+    border-top-right-radius: 50%;
+    border-bottom-right-radius: 50%;
+    background-repeat: no-repeat;
 }
 
-.login-section input {
+.login-card::after {
+    content: '';
+    position: absolute;
+    left: -60%;
+    bottom: -5px;
+    width: 65%;
+    height: 55%;
+    background-color: var(--little-container);
+    background-image: url('../images/bottom.png');
+    background-size: auto;
+    background-position: center center;
+    border-bottom-left-radius: 50%;
+    border-top-left-radius: 50%;
+    background-repeat: no-repeat;
+}
+
+
+.logo {
+    height: 20%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.logo img {
+    height: 50%;
+    margin: 0;
+    padding-top: 10px;
+}
+
+.logo h1 {
+    padding-top: 15px;
+    margin: 0;
+    padding-bottom: 10px;
+    color: var(--headers)
+}
+
+.login-fields {
+    height: 90%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 20px;
+}
+
+.login-fields h2 {
+    margin-bottom: 0;
+    color: var(--headers);
+}
+
+.login-fields p {
+    margin-top: 0;
+    color: var(--headers);
+}
+
+.fields #error-message {
+    display: none;
+    align-items: center;
+    justify-content: space-around;
+    color: red;
+}
+
+.fields #error-message.show {
+    display: flex;
+}
+
+.fields #error-message p {
+    margin: 0;
+}
+
+#login-form {
+    display: flex;
+    flex-direction: column;
+    height: 80%;
+    width: 60%;
+    justify-content: space-around;
+}
+
+#login-form .fields {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 65%;
+}
+
+#login-form .box {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    height: 40%;
+}
+
+#login-form .box label {
+    color: var(--headers);
+}
+#login-form .box input {
+    border: 2px solid #ccc;
     padding: 10px;
-    margin-bottom: 15px;
-    border: none;
-    border-radius: 30px; /*Adjusted border radius*/
-    background-color: #3a3a3a;
-    border-color: #3a3a3a;
-    color: #ffffff;
-    width: 100%; /* Full width input */
-    max-width: 90%; /* Max width for input */
-    text-align: center; /* Center aligned placeholder text */
+    font-size: 16px;
+    border-radius: 5px;
+}
+
+#login-form .box input:focus {
+    border-color: var(--border);
+    border-width: 2px;
+    outline: none;
+}
+
+#login-form .login-btn {
+    height: 10%;
+    border-width: 1px;
+    border-radius: 20px;
+}
+
+#login-form button {
+    width: 100%;
+    height: 100%;
+    background-color: var(--buttons);
+    border-width: 1px;
+    border-radius: 20px;
+    transition: background-color 0.3s ease;
+}
+
+#login-form button:hover {
+    background-color: var(--border);
+    cursor: pointer;
 }
 
 .error-message {
-    display: none;
-    color: #e50914;
-    font-size: 0.875em;
-    margin-top: -10px;
-    margin-bottom: 10px;
-    text-align: right;
-    max-width: 100%;
-}
-
-.login-section button {
-    padding: 10px;
-    margin-top: 10px; 
-    margin-left: 5px;
-    border: none;
-    border-radius: 30px; /* Adjusted border radius */
-    background-color: #000000;
-    color: #ffffff;
-    cursor: pointer;
-    font-size: 16px;
-    width: 100%; /* Full width button */
-    max-width: 100%; /* Max width for button */
-    text-align: center;
-}
-
-
-.boxt, .boxb {
-    background-color: #2b2b2b;
-    position: absolute;
-    width: 20%;
-    height: 40%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 1;
-
-}
-
-.boxt {
-    top: 31px;
-    right: 300px;
-    border-top-right-radius: 200px;
-    border-bottom-right-radius: 200px;
-}
-
-.boxb {
-    bottom: 31px;
-    left: 300px;
-    border-top-left-radius: 200px;
-    border-bottom-left-radius: 200px;
-}
-
-.boxt img, .boxb img {
-    max-width: 80%;
-    max-height: 80%;
-}
-
-@media (max-width: 768px) {
-    .boxt, .boxb {
-        width: 40%;
-        height: 40%;
-        border-radius: 150px;
-    }
-
-    .boxt {
-        top: 10px;
-        right: 10px;
-    }
-
-    .boxb {
-        bottom: 10px;
-        left: 10px;
-    }
-}
-
-@media (max-width: 480px) {
-    .boxt, .boxb {
-        display: none; /* Hide these elements on very small screens */
-    }
+    color: red;
+    /* text-align: center; */
+    margin-top: 5px;
 }

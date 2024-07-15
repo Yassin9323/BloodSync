@@ -49,3 +49,6 @@ def get_db():
         yield db
     finally:
         db.close()
+
+    # def get_by_email(self, email: str) -> User:
+    #     return self.__session.query(User).filter(User.email == email).first()
