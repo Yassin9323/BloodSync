@@ -15,3 +15,4 @@ class BloodBank(BaseModel, Base):
     blood_bank_inventory = relationship('BankInventory', backref='blood_banks')
     users = relationship('User', backref='blood_banks')
     requests = relationship('Request', backref='blood_banks')
+    transactions = relationship('Transaction', backref="blood_banks")

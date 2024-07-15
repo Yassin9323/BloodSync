@@ -53,7 +53,7 @@ $(document).ready(function() {
         
                 success: function(response) {
                     // console.log("Login successful, redirecting to dashboard...");           
-                    window.location.href = '/dashboard';
+                    window.location.href = '/blood-bank/dashboard';
                     },
                 error: function(response) {
                     // console.log("Login failed (ajax error), redirecting to error page...");

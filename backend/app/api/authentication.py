@@ -1,21 +1,21 @@
 from fastapi import APIRouter, HTTPException, Form, Depends
-from backend.app.core.database import get_db
+from app.core.database import get_db
 from app.models.users import User
-from app.models.hospitals import Hospital
 from app.models.blood_banks import BloodBank
+from app.models.hospitals import Hospital
 from app.utils.hashing import hash_password, verify_password
 from fastapi.responses import RedirectResponse
 from sqlalchemy.orm import Session
+from app.core import crud
 
 
 
 router = APIRouter(tags=["Authentication"])
 
 @router.post("/login")
-def login(email: str = Form(...), password: str = Form(...), db: Session = Depends(get_db)):
+async def login(email: str = Form(...), password: str = Form(...), db: Session = Depends(get_db)):
     
-    user = db.query(User).filter(User.email == email).first()
-    print(user)
+    user = crud.check(User,"email", email, db)
     if user:
         if verify_password(password, user.password):
             return RedirectResponse(url="/dashboard", status_code=303)
@@ -25,46 +25,46 @@ def login(email: str = Form(...), password: str = Form(...), db: Session = Depen
 
 
 @router.post("/register")
-def create_user(
+async def create_user(
     email: str = Form(...),
     username: str = Form(...),
     password: str = Form(...),
     role: str = Form(...),
     db: Session = Depends(get_db)
 ):
-    #Check the username is Unique or not
-    existing_username = db.query(User).filter(User.username == username).first()
-    print(existing_username)
-    if existing_username:
+    user = crud.check(User,"username", username, db)    #Check the username is Unique or not
+    if user:
         raise HTTPException(status_code=400, detail="Username already taken")
     
-    #Check the Email is Unique or not
-    existing_user = db.query(User).filter(User.email == email).first()
-    if existing_user:
+    user = crud.check(User, 'email', email, db)        #Check the Email is Unique or not
+    if user:
         raise HTTPException(status_code=400, detail="Email already registered")
-
-
+        
     hashed_password = hash_password(password)
     
-    if role == 'hospital-admin':
-        blood_bank_id = db.query(BloodBank).get(BloodBank.id).first()
+    # Get ID for the user
+    if role == 'blood-bank-admin': 
+        blood_bank_id = crud.id_by_role(role, db)
+        hospital_id = None
+    else: # hospital-admin
+        hospital_id = crud.id_by_role(role, db)
+        blood_bank_id = None
         
     new_user = User(
         email=email,
         username=username,
         password=hashed_password,
         role=role,
-        blood_bank_id = blood_bank_id
+        blood_bank_id = blood_bank_id,
+        hospital_id = hospital_id
     )
     try:
-        db.add(new_user)
-        db.commit()
-        return {"message": "Registration successful."}
+        crud.save(new_user, db)
+        return {"message": "Successful Registration"}
     except Exception as e:
         db.rollback()
         raise HTTPException(status_code=500, detail=str(e))
-    finally:
-        db.close()
+
 
 @router.get("/logout")
 def logout():

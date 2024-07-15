@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 
-from sqlalchemy import Column, Integer, String, Enum, TIMESTAMP, ForeignKey
+from sqlalchemy import Column, Integer, String, Enum, TIMESTAMP, ForeignKey, UniqueConstraint
 from sqlalchemy.orm import relationship
 from app.models.base_model import BaseModel, Base
 
@@ -8,10 +8,10 @@ class HospitalInventory(BaseModel, Base):
     __tablename__ = 'hospital_inventory'
     
     units = Column(Integer, nullable=False)
-    hospital_id = Column(String(60), ForeignKey('hospitals.id'), unique=True, nullable=False)
-    blood_type_id = Column(String(60), ForeignKey('blood_types.id'), unique=True, nullable=False)
+    hospital_id = Column(String(60), ForeignKey('hospitals.id'), nullable=False)
+    blood_type_id = Column(String(60), ForeignKey('blood_types.id'), nullable=False)
 
-    transactions = relationship('Transaction', backref="hospital_inventory")
+    __table_args__ = (UniqueConstraint('hospital_id', 'blood_type_id', name='_hospital_blood_type_uc'),)
 
 # 54f30789-af7f-4893-b4d6-e34b9f215bb2
 # create class HospitalInventory units=12 hospital_id="37154c63-ef86-47e7-9079-9b8db4949ffb" blood_type_id="fef1d821-c2cc-41a9-85f1-9023ec62aa76"

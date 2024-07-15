@@ -11,6 +11,8 @@ from app.models.blood_requests import Request
 from sqlalchemy.exc import OperationalError, ProgrammingError
 from sqlalchemy.orm import Session
 from app.core.database import SessionLocal
+from fastapi import APIRouter, HTTPException, Form, Depends
+
 
 db = SessionLocal()
 
@@ -43,10 +45,9 @@ def all(cls=None, db: Session = db):
         db.close()
 
 
-def save(obj=None, db: Session = db):
+def save(obj, db: Session = db):
     """Commit all changes of the current database session"""
-    if not db.object_session(obj):
-        db.add(obj)
+    db.add(obj)
     db.commit()
     db.refresh(obj)
 
@@ -73,21 +74,22 @@ def units_of(_type=None, db: Session = db):
     return len(units)
 
 
-def check_email(email, db: Session = db):
-    try:
-        user = db.query(User).filter(User.email == email).first()
-        return user
-    except OperationalError as op_err:
-        # Handle operational errors like lost connection
-        db.rollback()
-        raise op_err
-    except ProgrammingError as prog_err:
-        # Handle programming errors like commands out of sync
-        db.rollback()
-        raise prog_err
-    except Exception as e:
-        # General error handling
-        db.rollback()
-        raise e
-    finally:
-        db.close()
+def check(cls, parm, value, db: Session = db):
+    """return the object if it exists"""
+    class_parm = getattr(cls, parm) #User.email
+    user = db.query(cls).filter(class_parm == value).first()
+    return user
+    
+def id_by_role(role, db: Session = db):
+    """Return the ID of the user by role"""
+    if role == 'blood-bank-admin':
+        blood_bank = check(BloodBank, 'name', "Cairo-BloodBank", db)
+        if blood_bank:
+            blood_bank_id = blood_bank.id
+            print (blood_bank_id)
+            return blood_bank_id
+
+    else: # hospital-admin
+        hospital_id = None
+#We need here to handle the hospital_ID for the user 
+        return hospital_id

@@ -15,3 +15,4 @@ class Hospital(BaseModel, Base):
     hospital_inventory = relationship('HospitalInventory', backref='hospitals')
     users = relationship('User', cascade='all, delete, delete-orphan', backref='hospitals')
     requests = relationship('Request', backref='hospitals')
+    transactions = relationship('Transaction', backref="hospitals")

@@ -3,3 +3,5 @@ uvicorn
 sqlalchemy
 mysqlclient
 passlib
+bcrypt
+websockets

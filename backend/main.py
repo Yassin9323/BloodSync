@@ -1,26 +1,27 @@
-from fastapi import FastAPI, Request
-from app.api.authentication import router
-from app.api.bloodbank import bloodbank_router
-from app.api.hospital import hospital_router
+from fastapi import FastAPI, WebSocket, WebSocketDisconnect, Request
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from fastapi.responses import HTMLResponse
 import os
+from app.api import authentication
+from app.api.bloodbank import bloodbank, websockets
+from app.api.hospital import hospital
+
+
 
 
 app = FastAPI()
-current_dir = os.path.dirname(os.path.abspath(__file__))
 
-# Define the path to the static files and templates
-# static_files_path = os.path.join(current_dir, 'frontend/public')
+
+app.include_router(authentication.router)
+app.include_router(bloodbank.router)
+app.include_router(websockets.router)
+app.include_router(hospital.router)
+
+
+
 app.mount("/static", StaticFiles(directory="../frontend"), name="static")
 templates = Jinja2Templates(directory="../frontend/public")
-# Include the router from the auth module
-app.include_router(router)
-app.include_router(bloodbank_router)
-app.include_router(hospital_router)
-
-
 
 
 @app.get("/")
@@ -38,6 +39,7 @@ async def dashboard_page(request: Request):
 
 @app.get("/register", response_class=HTMLResponse)
 async def register_page(request: Request):
+    print("2")
     return templates.TemplateResponse("index.html", {"request": request})
 
 
