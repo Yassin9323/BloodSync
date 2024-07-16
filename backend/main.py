@@ -8,8 +8,6 @@ from app.api.bloodbank import bloodbank, websockets
 from app.api.hospital import hospital
 
 
-
-
 app = FastAPI()
 
 
