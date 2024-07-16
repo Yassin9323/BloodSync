@@ -1,4 +1,5 @@
 $(document).ready(function() {
+  $('#error-message').hide();
     console.log("APP.JS")
     // Define your routes and associated stylesheets here
     const routes = {
@@ -23,6 +24,9 @@ $(document).ready(function() {
 
     const route = window.location.pathname.replace('/', '');
     navigateToPage(route);
+<<<<<<< HEAD
+});
+=======
     console.log("Enter your acc ")
 
 
@@ -100,3 +104,4 @@ $(document).ready(function() {
     }
 })
 })
+>>>>>>> 3f5cf35 (Back End Features)

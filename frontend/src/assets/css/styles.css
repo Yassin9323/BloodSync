@@ -1,4 +1,4 @@
-body {
+/* body {
     margin: 0;
     font-family: 'Arial', sans-serif;
     background-color: #1e1e1e;
@@ -17,4 +17,23 @@ body {
     align-items: center;
     height: 100%;
     width: 100%;
+} */
+
+
+/* My stuff */
+html, body{
+    margin: 0;
+    overflow: hidden;
+}
+
+body {
+    height: 100vh;
+    width: 100%;
+}
+
+#root {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
 }

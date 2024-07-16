@@ -7,21 +7,25 @@ from app.utils.hashing import hash_password, verify_password
 from fastapi.responses import RedirectResponse
 from sqlalchemy.orm import Session
 from app.core import crud
-
+from fastapi.responses import JSONResponse
+from pydantic import BaseModel, EmailStr
 
 
 router = APIRouter(tags=["Authentication"])
 
+class LoginForm(BaseModel):
+    email: EmailStr
+    password: str
+
+
 @router.post("/login")
-async def login(email: str = Form(...), password: str = Form(...), db: Session = Depends(get_db)):
-    
+def login(email: EmailStr = Form(...), password: str = Form(...), db: Session = Depends(get_db)):
     user = crud.check(User,"email", email, db)
     if user:
         if verify_password(password, user.password):
-            return RedirectResponse(url="/dashboard", status_code=303)
-            # return {"message": "Login successful"}
-    print("Login failed: Invalid credentials")
-    raise HTTPException(status_code=401, detail="Invalid credentials")
+            return JSONResponse(content={"success": True, "message": "Login successful"})
+
+    return JSONResponse(content={"success": False, "message": "Invalid credentials"}, status_code=401)
 
 
 @router.post("/register")
