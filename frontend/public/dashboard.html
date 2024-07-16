@@ -1,19 +1,143 @@
 <div class="main-container">
   <div class="side-bar">
     <div class="groups">
-        <div class="logo">
+        <a href="" class="icon-box" title="Dashboard">
           <img src="/static/src/assets/images/red heart.png" alt="BloodSync Logo" class="logo">
-        </div>
-        <div class="icon-box">
-              <div class="image-2"></div>
-        </div>
-        <div class="icon-box">
-          <div class="image-4"></div>
-        </div>
+        </a>
+        <a href="" class="icon-box" title="Requests">
+          <img src="/static/src/assets/images/test.png" alt="BloodSync Logo" class="logo">
+        </a>
+        <a href="" class="icon-box" title="Inventory">
+          <img src="/static/src/assets/images/red heart.png" alt="BloodSync Logo" class="logo">
+        </a>
     </div>
   </div>
   <div class="dashboard-section">
-    <div class="dashboard-card"></div>
-    <div class="inventory-card"></div>
+    <div class="dashboard-card">
+      <div class="head">
+        <div class="user-name">
+          <img src="/static/src/assets/images/logo.png" alt="">
+          <p><span>Cairo Blood Bank</span>- Dashboard</p>
+        </div>
+        <div id="welcome-message">
+          <!-- <img src="/static/src/assets/images/welcome.png" alt=""> -->
+          <p>Welcome, <span>Cairo Blood Bank!</span></p>
+        </div>
+      </div>
+      <div class="data">
+        <div class="requests">
+          <div class="realtime">
+            <div class="number">
+              <p>25</p>
+            </div>
+            <div class="icon">
+              <img src="/static/src/assets/images/request.png" alt="pending-requests">
+              <p>Pending Requests</p>
+            </div>
+          </div>
+          <div class="realtime">
+            <div class="number">
+              <p>50</p>
+            </div>
+            <div class="icon">
+              <img src="/static/src/assets/images/reqs.png" alt="total-requests">
+              <p>Total Requests</p>
+            </div>
+          </div>
+        </div>
+        <div class="inventory">
+          <div class="icon">
+            <img src="/static/src/assets/images/bags.png" alt="">
+            <p> Total Available Blood Bags</p>
+          </div>
+          <div class="number">
+            <p>200</p>
+          </div>
+        </div>
+        <div class="history">
+          <div class="header">
+            <h3>Lates Transactions</h3>
+          </div>
+            <div class="history-table">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Hospital</th>
+                    <th>Requested Blood Type</th>
+                    <th>Requested Bags</th>
+                    <th>Request Number</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Ain Shams Hospital</td>
+                    <td>AB+</td>
+                    <td>40</td>
+                    <td>3rfgy</td>
+                  </tr>
+                  <tr>
+                    <td>Ain Shams Hospital</td>
+                    <td>AB+</td>
+                    <td>40</td>
+                    <td>3rfgy</td>
+                  </tr>
+                  <tr>
+                    <td>Ain Shams Hospital</td>
+                    <td>AB+</td>
+                    <td>40</td>
+                    <td>3rfgy</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+        </div>
+      </div>
+  </div>
+  <div class="inventory-card">
+    <div class="header">
+      <h3>Inventory</h3>
+    </div>
+    <table>
+      <thead>
+        <tr>
+          <th>Blood Type</th>
+          <th>Available Bags</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>A+</td>
+          <td>5</td>
+        </tr>
+        <tr>
+          <td>B+</td>
+          <td>5</td>
+        </tr>
+        <tr>
+          <td>O+</td>
+          <td>5</td>
+        </tr>
+        <tr>
+          <td>AB+</td>
+          <td>5</td>
+        </tr>
+        <tr>
+          <td>A-</td>
+          <td>5</td>
+        </tr>
+        <tr>
+          <td>B-</td>
+          <td>5</td>
+        </tr>
+        <tr>
+          <td>O-</td>
+          <td>5</td>
+        </tr>
+        <tr>
+          <td>AB-</td>
+          <td>5</td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 </div>
