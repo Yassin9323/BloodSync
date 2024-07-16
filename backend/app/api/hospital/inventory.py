@@ -5,12 +5,13 @@ from sqlalchemy.orm import joinedload, Session
 from sqlalchemy import func
 from app.models.hospitals_Inventory import HospitalInventory
 from app.models.hospitals import Hospital
-
+from app.schemas import user
+from app.utils import oauth2
 
 router = APIRouter(prefix="/{name}_hospital/inventory", tags=["Hospital"])
 
 @router.get("")
-async def hospital_inventory(name, db: Session = Depends(get_db)):
+async def hospital_inventory(name, db: Session = Depends(get_db), current_user: user.User = Depends(oauth2.get_current_user)):
     """ get the inventory for specific hospital """
     hospital = crud.get_hospital(name, db)
     hospital_inventories = (

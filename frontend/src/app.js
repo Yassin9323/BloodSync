@@ -1,9 +1,12 @@
 $(document).ready(function() {
   $('#error-message').hide();
-    console.log("APP.JS")
+  const route = window.location.pathname.replace('/', '');
+  console.log("APP.JS")
+  console.log(route)
     // Define your routes and associated stylesheets here
     const routes = {
-      'dashboard': { page: 'dashboard', style: 'dashboard.css' },
+      'bloodbank/dashboard': { page: 'dashboard', style: 'dashboard.css' },
+      'bloodbank/inventory': { page: 'inventory', style: 'inventory.css' },
       'error': { page: 'error', style: 'error.css' },
       'login': { page: 'login', style: 'login.css' },
       'register': { page: 'register', style: 'register.css' },
@@ -17,11 +20,12 @@ $(document).ready(function() {
         $.getScript(`/static/src/assets/js/${page}.js`)
         .fail(function() {
           console.error(`Failed to load script: /static/src/assets/js/${page}.js`);
-      });
+        });
         $('#page-style').attr('href', `/static/src/assets/css/${style}`);
       });
     }
     // Hello
-    const route = window.location.pathname.replace('/', '');
     navigateToPage(route);
+    console.log(page)
+    console.log(style)
 });

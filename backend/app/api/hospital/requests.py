@@ -8,12 +8,13 @@ from app.models.hospitals import Hospital
 from app.models.blood_requests import Request
 from app.models.blood_banks import BloodBank
 from app.models.blood_types import BloodType
-
+from app.schemas import user
+from app.utils import oauth2
 
 router = APIRouter(prefix="/{name}_hospital/requests", tags=["Hospital"])
 
 @router.get("/pending")
-async def pending_hospital_requests(name, db: Session = Depends(get_db)):
+async def pending_hospital_requests(name, db: Session = Depends(get_db), current_user: user.User = Depends(oauth2.get_current_user)):
     """pending requests """
     hospital = crud.get_hospital(name, db)
     pending_reqs = (
@@ -36,7 +37,7 @@ async def pending_hospital_requests(name, db: Session = Depends(get_db)):
 
 
 @router.get("/total")
-async def total_hospital_requests(name, db: Session = Depends(get_db)):
+async def total_hospital_requests(name, db: Session = Depends(get_db), current_user: user.User = Depends(oauth2.get_current_user)):
     """total requests """
     hospital = crud.get_hospital(name, db)
 
@@ -65,6 +66,7 @@ async def create_request(
     blood_type: str = Form(...),
     requested_units: int = Form(...),
     db: Session = Depends(get_db),
+    current_user: user.User = Depends(oauth2.get_current_user)
     ):
     """Create Blood Request to the BloodBank"""
     hospital = crud.get_hospital(name, db)

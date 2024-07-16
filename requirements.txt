@@ -5,3 +5,5 @@ mysqlclient
 passlib
 bcrypt
 websockets
+fastapi-cors
+python-jose

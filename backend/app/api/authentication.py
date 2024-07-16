@@ -1,31 +1,34 @@
-from fastapi import APIRouter, HTTPException, Form, Depends
+from fastapi import APIRouter, HTTPException, Form, Depends, status
 from app.core.database import get_db
 from app.models.users import User
 from app.models.blood_banks import BloodBank
 from app.models.hospitals import Hospital
-from app.utils.hashing import hash_password, verify_password
+from app.utils.hashing import Hash
 from fastapi.responses import RedirectResponse
 from sqlalchemy.orm import Session
 from app.core import crud
 from fastapi.responses import JSONResponse
 from pydantic import BaseModel, EmailStr
+from fastapi.security import OAuth2PasswordRequestForm
+from app.utils import token
 
 
 router = APIRouter(tags=["Authentication"])
 
-class LoginForm(BaseModel):
-    email: EmailStr
-    password: str
 
-
-@router.post("/login")
-def login(email: EmailStr = Form(...), password: str = Form(...), db: Session = Depends(get_db)):
-    user = crud.check(User,"email", email, db)
-    if user:
-        if verify_password(password, user.password):
-            return JSONResponse(content={"success": True, "message": "Login successful"})
-
-    return JSONResponse(content={"success": False, "message": "Invalid credentials"}, status_code=401)
+@router.post('/login')
+def login(request:OAuth2PasswordRequestForm = Depends(), db: Session = Depends(get_db)):
+    user = db.query(User).filter(User.email == request.username).first()
+    if not user:
+        raise HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
+                            detail=f"User with email '{request.username}' not found")
+        
+    if not Hash.verify(user.password, request.password):
+        raise HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
+                            detail=f"Incorrect password")
+        
+    access_token = token.create_access_token(data={"sub": user.email, "role": user.role})
+    return {"access_token": access_token, "token_type": "bearer"}
 
 
 @router.post("/register")
@@ -44,7 +47,7 @@ async def create_user(
     if user:
         raise HTTPException(status_code=400, detail="Email already registered")
         
-    hashed_password = hash_password(password)
+    hashed_password = Hash.bcrypt(password)
     
     # Get ID for the user
     if role == 'blood-bank-admin': 
