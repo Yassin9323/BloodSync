@@ -7,13 +7,14 @@ from app.models.hospitals_Inventory import HospitalInventory
 from app.models.blood_requests import Request
 from app.models.transactions import Transaction
 from app.models.hospitals import Hospital
-
+from app.schemas import user
+from app.utils import oauth2
 
 router = APIRouter(prefix="/{name}_hospital/dashboard", tags=["Hospital"])
 
 
 @router.get("/inventory")
-async def inventory(name, db: Session = Depends(get_db)):
+async def inventory(name, db: Session = Depends(get_db), current_user: user.User = Depends(oauth2.get_current_user)):
     """Get the bank inventory data and request counts for the dashboard."""
     # Real time BloodBank inventory data
     # Fetch bank inventory data  
@@ -33,7 +34,7 @@ async def inventory(name, db: Session = Depends(get_db)):
     return {"inventory": inventory_data}
     
 @router.get("/inventory_total")
-async def total_inventory(name, db: Session = Depends(get_db)):
+async def total_inventory(name, db: Session = Depends(get_db), current_user: user.User = Depends(oauth2.get_current_user)):
     # Inventory part
     # Handle total units
     hospital = crud.get_hospital(name, db) 
@@ -55,7 +56,7 @@ async def total_inventory(name, db: Session = Depends(get_db)):
     return {"total_units": total_units}
         
 @router.get("/requests")
-async def requests(name, db: Session = Depends(get_db)):  
+async def requests(name, db: Session = Depends(get_db), current_user: user.User = Depends(oauth2.get_current_user)):  
     # Requests part    
     # Fetch request counts
     hospital = crud.get_hospital(name, db)
@@ -73,7 +74,7 @@ async def requests(name, db: Session = Depends(get_db)):
 
 
 @router.get("/transactions")
-async def transactions(name, db: Session = Depends(get_db)):  
+async def transactions(name, db: Session = Depends(get_db), current_user: user.User = Depends(oauth2.get_current_user)):  
     # Latest 3 Transactions Part
     # Fetch Hospital name , req.id, bloodtype, actual transfered units
     hospital = crud.get_hospital(name, db)

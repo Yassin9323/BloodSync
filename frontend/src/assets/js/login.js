@@ -7,18 +7,15 @@ $(document).ready(function() {
         var emailError = '';
         var passwordError = '';
 
-        // Clear previous error messages
         $('#email-error').remove();
         $('#password-error').remove();
 
-        // Validate email
         if (!email) {
             emailError = 'Email is required.';
         } else if (!validateEmail(email)) {
             emailError = 'Invalid email format.';
         }
 
-        // Validate password
         if (!password) {
             passwordError = 'Password is required.';
         }
@@ -37,26 +34,37 @@ $(document).ready(function() {
             url: '/login',
             type: 'POST',
             contentType: 'application/x-www-form-urlencoded',
-            data: $.param({ email: email, password: password }),
+            data: $.param({ username: email, password: password }),
             success: function(response) {
-                if (response.success) {
-                    console.log("Login successful, redirecting to dashboard...");
-                    window.location.href = '/dashboard';
+                if (response.access_token) {
+                    console.log("Access token received:", response.access_token); // Debugging line
+                    localStorage.setItem('accessToken', response.access_token);
+
+                    var token = parseJwt(response.access_token);
+                    var role = token.role;
+
+                    switch (role) {
+                        case 'blood-bank-admin':
+                            window.location.href = '/bloodbank/dashboard';
+                            break;
+                        case 'hospital-admin':
+                            window.location.href = '/cairo_hospital/dashboard';
+                            break;
+                        default:
+                            window.location.href = '/';
+                            break;
+                    }
                 } else {
-                    // Show error message if login fails
-                    console.log("Login failed, showing error message.");
                     $('#error-message').addClass('show').text('Invalid credentials');
                 }
             },
             error: function() {
-                // Show error message on AJAX error
                 $('#error-message').addClass('show').text('Invalid credentials');
             }
         });
     });
 
     $(document).on('input', '#email, #password', function() {
-        console.log('Input event triggered');
         $('#error-message').removeClass('show');
         $('#email-error').remove();
         $('#password-error').remove();
@@ -65,5 +73,15 @@ $(document).ready(function() {
     function validateEmail(email) {
         var re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         return re.test(email);
+    }
+
+    function parseJwt(token) {
+        var base64Url = token.split('.')[1];
+        var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+        var jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
+            return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+        }).join(''));
+
+        return JSON.parse(jsonPayload);
     }
 });

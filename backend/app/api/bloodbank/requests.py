@@ -8,14 +8,14 @@ from app.models.bloodBanks_Inventory import BankInventory
 from app.models.blood_requests import Request
 from app.models.transactions import Transaction
 from app.models.hospitals_Inventory import HospitalInventory
-
-
+from app.schemas import user
+from app.utils import oauth2
 
 router = APIRouter(prefix="/requests")
 
 
 @router.get("/pending")
-async def requests(db: Session = Depends(get_db)): 
+async def requests(db: Session = Depends(get_db), current_user: user.User = Depends(oauth2.get_current_user)): 
     # Requests part    
     # Fetch request counts    
     pending_reqs = (
@@ -37,7 +37,7 @@ async def requests(db: Session = Depends(get_db)):
 
 
 @router.get("/total")
-async def requests(db: Session = Depends(get_db)): 
+async def requests(db: Session = Depends(get_db), current_user: user.User = Depends(oauth2.get_current_user)): 
     # Requests part    
     # Fetch request counts    
     total_reqs = (
@@ -61,7 +61,8 @@ async def requests(db: Session = Depends(get_db)):
 async def update_request_status(
     request_id: str,
     action: str = Form(...),
-    db: Session = Depends(get_db)
+    db: Session = Depends(get_db),
+    current_user: user.User = Depends(oauth2.get_current_user)
 ):
     """Update the status of a blood request"""
     request = db.query(Request).filter(Request.id == request_id).first()

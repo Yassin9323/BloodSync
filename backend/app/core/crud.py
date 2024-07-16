@@ -101,3 +101,9 @@ def get_hospital(name, db: Session = db):
     if not hospital:
         raise HTTPException(status_code=404, detail=f"{h_name} not found")
     return hospital
+
+def get_cairo_bloodbank(db: Session = db):
+    cairo_bloodbank = check(BloodBank, "name", "Cairo-BloodBank", db)
+    if not cairo_bloodbank:
+        raise HTTPException(status_code=404, detail="Cairo-BloodBank not found")
+    return cairo_bloodbank

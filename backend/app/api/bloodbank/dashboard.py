@@ -7,18 +7,18 @@ from app.models.blood_banks import BloodBank
 from app.models.bloodBanks_Inventory import BankInventory
 from app.models.blood_requests import Request
 from app.models.transactions import Transaction
+from app.schemas import user
+from app.utils import oauth2
 
 
 router = APIRouter(prefix="/dashboard")
 
 @router.get("/inventory")
-async def inventory(db: Session = Depends(get_db)):
+async def inventory(db: Session = Depends(get_db), current_user: user.User = Depends(oauth2.get_current_user)):
     """Get the bank inventory data and request counts for the dashboard."""
     # Real time BloodBank inventory data
     # Fetch bank inventory data
-    cairo_bloodbank = crud.check(BloodBank, "name", "Cairo-BloodBank", db)
-    if not cairo_bloodbank:
-        raise HTTPException(status_code=404, detail="Cairo-BloodBank not found")
+    cairo_bloodbank = crud.get_cairo_bloodbank(db)
     
     bank_inventories = (
         db.query(BankInventory)
@@ -36,7 +36,7 @@ async def inventory(db: Session = Depends(get_db)):
     
     
 @router.get("/inventory_total")
-async def total_inventory(db: Session = Depends(get_db)):
+async def total_inventory(db: Session = Depends(get_db), current_user: user.User = Depends(oauth2.get_current_user)):
     # Inventory part
     # Handle total units 
     cairo_bloodbank = crud.check(BloodBank, "name", "Cairo-BloodBank", db)
@@ -63,7 +63,7 @@ async def total_inventory(db: Session = Depends(get_db)):
 
 
 @router.get("/requests")
-async def requests(db: Session = Depends(get_db)): 
+async def requests(db: Session = Depends(get_db), current_user: user.User = Depends(oauth2.get_current_user)): 
     # Requests part    
     # Fetch request counts
     pending_reqs = db.query(func.count(Request.id)).filter(Request.status == "pending").scalar()
@@ -75,7 +75,7 @@ async def requests(db: Session = Depends(get_db)):
             }
     
 @router.get("/transactions")
-async def transactions(db: Session = Depends(get_db)):  
+async def transactions(db: Session = Depends(get_db), current_user: user.User = Depends(oauth2.get_current_user)):  
     # Latest 3 Transactions Part
     # Fetch Hospital name , req.id, bloodtype, actual transfered units
     transactions = (
