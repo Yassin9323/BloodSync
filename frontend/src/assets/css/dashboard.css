@@ -3,18 +3,22 @@
       Ubuntu, "Helvetica Neue", Helvetica, Arial, "PingFang SC",
       "Hiragino Sans GB", "Microsoft Yahei UI", "Microsoft Yahei",
       "Source Han Sans CN", sans-serif;
-      background-color:  #1c1c1c;
+      background-color:  #F5F7FA;
   }
   
-  .main-container {
-    overflow: hidden;
+html, body {
+  margin: 0;
+}
 
-  }
+body {
+  height: 100vh;
+  width: 100%;
+}
   
-  .main-container,
+  /* .main-container,
   .main-container * {
     box-sizing: border-box;
-  }
+  } */
   
   input,
   select,
@@ -24,119 +28,64 @@
   }
   
   .main-container {
+    width: 100%;
+    height: 100%;
+    display: flex;  
+  }
+  .side-bar {
+    width: 7%;
+    /* height: 100%; */
+    background: #7a7a7a;
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
-    flex-wrap: nowrap;
-    gap: 10px;
-    position: relative;
-    width: 1440px;
-    height: 900px;
-    margin: 0 auto;
-    background: rgba(0, 0, 0, 0);
+    align-items: center;
+  }
+
+  .side-bar .groups {
+    width: 90%;
+    height: 30%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
     overflow: hidden;
   }
-  .root {
-    flex-shrink: 0;
-    position: relative;
-    width: 1440px;
-    height: 900px;
-    background: rgba(0, 0, 0, 0);
+
+  .logo {
+    width: 100%;
+    height: 40%;
   }
-  .background {
-    position: absolute;
-    width: 119px;
-    height: 899px;
-    right: 1321px;
-    bottom: 1px;
-    background: #2c2c2c;
-    z-index: 1;
-  }
-  .groups {
-    position: relative;
-    width: 119px;
-    height: 100px;
-    margin: 60px 0 0 0;
-    background: rgba(0, 0, 0, 0);
-    z-index: 108;
-    overflow: visible auto;
-  }
-  .image {
-    position: relative;
-    width: 46px;
-    height: 46px;
-    margin: 30px 0 0 34px;
-    background: #161616
-      no-repeat center;
+
+  .logo img {
     background-size: cover;
-    z-index: 109;
-    border-radius: 22.75px;
+    height: 100%;
   }
-  .groups-1 {
-    position: relative;
-    width: 118px;
-    height: 79px;
-    margin: -6px 0 0 0;
-    background: rgba(0, 0, 0, 0);
-    z-index: 99;
-    overflow: visible auto;
+
+  .side-bar .groups .icon-box {
+    width: 100%;
+    height: 30%;
   }
-  .image-2 {
-    position: relative;
-    width: 20px;
-    height: 19px;
-    margin: 30px 0 0 47px;
-    background: #161616
-      no-repeat center;
-    background-size: cover;
-    z-index: 100;
+
+  .dashboard-section {
+    width: 93%;
+    display: flex;
+    justify-content: space-around;
   }
-  .groups-3 {
-    position: relative;
-    width: 118px;
-    height: 79px;
-    margin: -5px 0 0 0;
-    background: rgba(0, 0, 0, 0);
-    z-index: 97;
-    overflow: visible auto;
+
+  .dashboard-card {
+    width: 65%;
+    background-color: blue;
   }
-  .image-4 {
-    position: relative;
-    width: 19px;
-    height: 19px;
-    margin: 25px 0 0 48px;
-    background: #161616
-      no-repeat center;
-    background-size: cover;
-    z-index: 98;
+
+  .inventory-card {
+    width: 30%;
+    background-color: red;
   }
-  .image-5 {
-    position: relative;
-    width: 19px;
-    height: 21px;
-    margin: 13px 0 0 48px;
-    background: #1c1c1c
-      no-repeat center;
-    background-size: cover;
-    z-index: 85;
-  }
-  .image-6 {
-    position: absolute;
-    width: 25px;
-    height: 21px;
-    right: 1286px;
-    src: url("/static/src/assets/images/white heart.png");
-    bottom: 869px;
-    background: #161616
-      no-repeat center;
-    background-size: cover;
-    z-index: 113;
-  }
-  .bank-dashboard {
+
+  /* .bank-dashboard {
     display: flex;
     align-items: center;
     justify-content: flex-start;
-    position: absolute;
     height: 24px;
     right: 976px;
     bottom: 864px;
@@ -1535,4 +1484,4 @@
     white-space: nowrap;
     z-index: 40;
   }
-  
+   */
