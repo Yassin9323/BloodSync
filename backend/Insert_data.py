@@ -102,7 +102,8 @@ print("3")
 inventory_ids = []
 for hospital_id in hospital_ids:
     for blood_type_id in blood_type_ids:
-        inventory_id = exec_command(my_console, f'create HospitalInventory units="5" hospital_id="{hospital_id}" blood_type_id="{blood_type_id}"')
+        num = random.randint(1, 10)
+        inventory_id = exec_command(my_console, f'create HospitalInventory units="{num}" hospital_id="{hospital_id}" blood_type_id="{blood_type_id}"')
         if inventory_id is None or inventory_id == "":
             print(f'FAIL: Can\'t create HospitalInventory for hospital_id={hospital_id} and blood_type_id={blood_type_id}')
         inventory_ids.append(inventory_id)
@@ -135,9 +136,10 @@ for hospital_id in hospital_ids:
     
     
 # Create Transaction 
-for x in range(len(request_ids)):
+for x in range(len(request_ids)-1):
     
     trancsaction = exec_command(my_console, f'create Transaction units="{req_units[x]}" from_id="{cairo_bloodbank_id}" to_id="{hospital_ids[x]}" request_id="{request_ids[x]}"')
+    U_status = exec_command(my_console, f'update Request {request_ids[x]} status approved')
     time.sleep(1)
 
 print("\nData Loaded Sucessfully :) \n")

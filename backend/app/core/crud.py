@@ -93,3 +93,11 @@ def id_by_role(role, db: Session = db):
         hospital_id = None
 #We need here to handle the hospital_ID for the user 
         return hospital_id
+    
+def get_hospital(name, db: Session = db):
+    h_name = name.capitalize()
+    h_name = f"{h_name}-Hospital"
+    hospital = db.query(Hospital).filter(Hospital.name == h_name).first()
+    if not hospital:
+        raise HTTPException(status_code=404, detail=f"{h_name} not found")
+    return hospital
