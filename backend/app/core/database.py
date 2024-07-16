@@ -12,7 +12,6 @@ SQLALCHEMY_DATABASE_URL = ('mysql+mysqldb://{}:{}@{}/{}'.
                                             Config.SYNC_MYSQL_PWD,
                                             Config.SYNC_MYSQL_HOST,
                                             Config.SYNC_MYSQL_DB))
-
 # Create the engine with the new MySQL URL
 engine = create_engine(SQLALCHEMY_DATABASE_URL)
 

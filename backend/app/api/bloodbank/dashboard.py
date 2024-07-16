@@ -4,16 +4,15 @@ from app.core import crud
 from sqlalchemy.orm import joinedload, Session
 from sqlalchemy import func
 from app.models.blood_banks import BloodBank
-from app.models.blood_types import BloodType
 from app.models.bloodBanks_Inventory import BankInventory
 from app.models.blood_requests import Request
 from app.models.transactions import Transaction
 
 
-router = APIRouter()
+router = APIRouter(prefix="/dashboard")
 
-@router.get("/dashboard")
-async def dashboard(db: Session = Depends(get_db)):
+@router.get("/inventory")
+async def inventory(db: Session = Depends(get_db)):
     """Get the bank inventory data and request counts for the dashboard."""
     # Real time BloodBank inventory data
     # Fetch bank inventory data
@@ -33,20 +32,50 @@ async def dashboard(db: Session = Depends(get_db)):
         for inv in bank_inventories
     ]
     
+    return {"inventory": inventory_data,}
     
+    
+@router.get("/inventory_total")
+async def total_inventory(db: Session = Depends(get_db)):
     # Inventory part
     # Handle total units 
+    cairo_bloodbank = crud.check(BloodBank, "name", "Cairo-BloodBank", db)
+    if not cairo_bloodbank:
+        raise HTTPException(status_code=404, detail="Cairo-BloodBank not found")
+    
+    bank_inventories = (
+        db.query(BankInventory)
+        .filter(BankInventory.bank_id == cairo_bloodbank.id)
+        .options(joinedload(BankInventory.blood_types))
+        .all()
+    )
+    
+    inventory_data = [
+        {"blood_type": inv.blood_types.type, "available_units": inv.units}
+        for inv in bank_inventories
+    ]
+    
     total_units = 0
     for item in inventory_data:
         total_units += item["available_units"]
         
-        
+    return{"total_units":total_units}
+
+
+@router.get("/requests")
+async def requests(db: Session = Depends(get_db)): 
     # Requests part    
     # Fetch request counts
     pending_reqs = db.query(func.count(Request.id)).filter(Request.status == "pending").scalar()
     total_reqs = db.query(func.count(Request.id)).scalar()
     
+    return {"requests": {
+            "pending": pending_reqs,
+            "total": total_reqs}
+            }
     
+@router.get("/transactions")
+async def transactions(db: Session = Depends(get_db)):  
     # Latest 3 Transactions Part
     # Fetch Hospital name , req.id, bloodtype, actual transfered units
     transactions = (
@@ -67,13 +96,4 @@ async def dashboard(db: Session = Depends(get_db)):
         for trns in transactions
     ]
     
-    
-    return {
-        "inventory": inventory_data,
-        "requests": {
-            "pending": pending_reqs,
-            "total": total_reqs
-        },
-        "total_units":total_units,
-        "latest_transactions": latest_transactions
-    }
+    return{"latest_transactions": latest_transactions}
