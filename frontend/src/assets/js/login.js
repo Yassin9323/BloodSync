@@ -1,4 +1,5 @@
 $(document).ready(function() {
+    // Submit login form
     $(document).on('submit', '#login-form', function(event) {
         event.preventDefault();
 
@@ -39,18 +40,22 @@ $(document).ready(function() {
                 if (response.access_token) {
                     console.log("Access token received:", response.access_token); // Debugging line
                     localStorage.setItem('accessToken', response.access_token);
+                    localStorage2.setItem('role', response.role)
 
                     var token = parseJwt(response.access_token);
                     var role = token.role;
 
                     switch (role) {
                         case 'blood-bank-admin':
+                            console.log(role)
                             window.location.href = '/bloodbank/dashboard';
                             break;
                         case 'hospital-admin':
+                            console.log(role)
                             window.location.href = '/cairo_hospital/dashboard';
                             break;
                         default:
+                            console.log(role)
                             window.location.href = '/';
                             break;
                     }
@@ -64,17 +69,20 @@ $(document).ready(function() {
         });
     });
 
+    // Input field event handler
     $(document).on('input', '#email, #password', function() {
         $('#error-message').removeClass('show');
         $('#email-error').remove();
         $('#password-error').remove();
     });
 
+    // Validate email format
     function validateEmail(email) {
         var re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         return re.test(email);
     }
 
+    // Parse JWT token
     function parseJwt(token) {
         var base64Url = token.split('.')[1];
         var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
@@ -84,4 +92,14 @@ $(document).ready(function() {
 
         return JSON.parse(jsonPayload);
     }
+
+    // Global AJAX setup to include Authorization header
+    $.ajaxSetup({
+        beforeSend: function(xhr) {
+            var token = localStorage.getItem('accessToken');
+            if (token) {
+                xhr.setRequestHeader('Authorization', 'Bearer ' + token);
+            }
+        }
+    });
 });

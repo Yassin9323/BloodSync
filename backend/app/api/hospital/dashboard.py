@@ -33,7 +33,7 @@ async def inventory(name, db: Session = Depends(get_db), current_user: user.User
     
     return {"inventory": inventory_data}
     
-@router.get("/inventory_total")
+@router.get("/inventory_total_units")
 async def total_inventory(name, db: Session = Depends(get_db), current_user: user.User = Depends(oauth2.get_current_user)):
     # Inventory part
     # Handle total units

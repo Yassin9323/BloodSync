@@ -30,7 +30,7 @@ async def bloodbank_inventory(db: Session = Depends(get_db), current_user: user.
 
 
 @router.get("/{hospital_name}_inventory")
-async def get_hospital_inventory(hospital_name: str, db: Session = Depends(get_db)):
+async def get_hospital_inventory(hospital_name: str, db: Session = Depends(get_db), current_user: user.User = Depends(oauth2.get_current_user)):
     hospital = crud.get_hospital(hospital_name, db)
 
     hospital_inventories = db.query(HospitalInventory).filter(HospitalInventory.hospital_id == hospital.id).all()

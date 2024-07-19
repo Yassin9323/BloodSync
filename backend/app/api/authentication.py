@@ -26,7 +26,7 @@ def login(request:OAuth2PasswordRequestForm = Depends(), db: Session = Depends(g
     if not Hash.verify(user.password, request.password):
         raise HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
                             detail=f"Incorrect password")
-        
+    print(user.role)
     access_token = token.create_access_token(data={"sub": user.email, "role": user.role})
     return {"access_token": access_token, "token_type": "bearer"}
 
@@ -48,7 +48,7 @@ async def create_user(
         raise HTTPException(status_code=400, detail="Email already registered")
         
     hashed_password = Hash.bcrypt(password)
-    
+    print(role)
     # Get ID for the user
     if role == 'blood-bank-admin': 
         blood_bank_id = crud.id_by_role(role, db)

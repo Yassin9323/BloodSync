@@ -41,19 +41,25 @@ async def login_page(request: Request):
     print("Sucessssssssss")
     return templates.TemplateResponse("index.html", {"request": request})
 
-@app.get("/bloodbank/dashboard", response_class=HTMLResponse)
-async def dashboard_page(request: Request):
-    print("BloodBank Dashboard Page")
-    return templates.TemplateResponse("index.html", {"request": request})
-
 @app.get("/register", response_class=HTMLResponse)
 async def register_page(request: Request):
     print("2")
     return templates.TemplateResponse("index.html", {"request": request})
 
+@app.get("/{authority}/dashboard", response_class=HTMLResponse)
+async def dashboard_page(request: Request, authority):
+    print(f"{authority} Dashboard Page")
+    return templates.TemplateResponse("index.html", {"request": request})
+
+
 @app.get("/bloodbank/inventory", response_class=HTMLResponse)
 async def bloodbank_inventory_page(request: Request):
     print("BloodBank inventory Page")
+    return templates.TemplateResponse("index.html", {"request": request})
+
+@app.get("/bloodbank/requests", response_class=HTMLResponse)
+async def bloodbank_requests_page(request: Request):
+    print("BloodBank requests Page")
     return templates.TemplateResponse("index.html", {"request": request})
 
 @app.get("/error", response_class=HTMLResponse)

@@ -57,7 +57,7 @@ async def requests(db: Session = Depends(get_db), current_user: user.User = Depe
     return {"total_requests": total_requests}
 
 
-@router.put("")
+@router.put("/update_status")
 async def update_request_status(
     request_id: str,
     action: str = Form(...),
