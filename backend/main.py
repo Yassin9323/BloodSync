@@ -38,12 +38,16 @@ def index():
 
 @app.get("/login", response_class=HTMLResponse)
 async def login_page(request: Request):
-    print("Sucessssssssss")
+    print("Login Page")
     return templates.TemplateResponse("index.html", {"request": request})
 
 @app.get("/register", response_class=HTMLResponse)
 async def register_page(request: Request):
-    print("2")
+    print("Register page")
+    return templates.TemplateResponse("index.html", {"request": request})
+
+@app.get("/error", response_class=HTMLResponse)
+async def error_page(request: Request):
     return templates.TemplateResponse("index.html", {"request": request})
 
 @app.get("/{authority}/dashboard", response_class=HTMLResponse)
@@ -52,16 +56,12 @@ async def dashboard_page(request: Request, authority):
     return templates.TemplateResponse("index.html", {"request": request})
 
 
-@app.get("/bloodbank/inventory", response_class=HTMLResponse)
-async def bloodbank_inventory_page(request: Request):
-    print("BloodBank inventory Page")
+@app.get("/{authority}/inventory", response_class=HTMLResponse)
+async def bloodbank_inventory_page(request: Request, authority):
+    print(f"{authority} inventory Page")
     return templates.TemplateResponse("index.html", {"request": request})
 
-@app.get("/bloodbank/requests", response_class=HTMLResponse)
-async def bloodbank_requests_page(request: Request):
-    print("BloodBank requests Page")
-    return templates.TemplateResponse("index.html", {"request": request})
-
-@app.get("/error", response_class=HTMLResponse)
-async def error_page(request: Request):
+@app.get("/{authority}/requests", response_class=HTMLResponse)
+async def bloodbank_requests_page(request: Request, authority):
+    print(f"{authority} requests Page")
     return templates.TemplateResponse("index.html", {"request": request})

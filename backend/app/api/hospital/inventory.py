@@ -10,7 +10,7 @@ from app.utils import oauth2
 
 router = APIRouter(prefix="/{name}_hospital/inventory", tags=["Hospital"])
 
-@router.get("")
+@router.get("/")
 async def hospital_inventory(name, db: Session = Depends(get_db), current_user: user.User = Depends(oauth2.get_current_user)):
     """ get the inventory for specific hospital """
     hospital = crud.get_hospital(name, db)

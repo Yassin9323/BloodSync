@@ -23,18 +23,19 @@
                         <option value="blood-bank-admin">Blood Bank Admin</option>
                         <option value="hospital-admin">Hospital Admin</option>
                     </select>
-
-                    <!-- <div id="hospitalNames" class="hidden">
-                        <label for="Available Hospitals">Select Hospital</label><br>
-                        <select id="hospital-names" name="hospital-names">
-                            <option value="Cairo Hospital">Cairo Hospital</option>
-                            <option value="AinShams Hospital">AinShams Hospital</option>
-                            <option value="Giza Hospital">Giza Hospital</option>
-                            <option value="Helwan Hospital">Helwan Hospital</option>
-                        </select><br><br>
-                    </div> -->
-            
                     <span class="error-message" id="roleError">Role is required</span>
+
+                    <label for="hospital-name">Select Place</label><br>
+                    <select id="place_name" name="place_name" required>
+                        <option value="Cairo-BloodBank">Cairo BloodBank</option>
+                        <option value="Cairo-Hospital">Cairo Hospital</option>
+                        <option value="AinShams-Hospital">AinShams Hospital</option>
+                        <option value="Giza-Hospital">Giza Hospital</option>
+                        <option value="Helwan-Hospital">Helwan Hospital</option>
+                    </select>
+                    <span class="error-message" id="placeError">Place is required</span>
+
+            
                     
                     <label for="password">Password</label>
                     <input type="password" name="password" id="password" placeholder="Enter your password"required>

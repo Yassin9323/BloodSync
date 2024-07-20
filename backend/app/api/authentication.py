@@ -26,8 +26,14 @@ def login(request:OAuth2PasswordRequestForm = Depends(), db: Session = Depends(g
     if not Hash.verify(user.password, request.password):
         raise HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
                             detail=f"Incorrect password")
-    print(user.role)
-    access_token = token.create_access_token(data={"sub": user.email, "role": user.role})
+    # print(user.role)
+    if user.role == "blood-bank-admin":
+        place_name = "Cairo-BloodBank"
+    else:
+        hospital = db.query(Hospital).filter(Hospital.id == user.hospital_id).first()
+        place_name = hospital.name
+    print(place_name)
+    access_token = token.create_access_token(data={"sub": user.email, "role": user.role, "place_name": place_name})
     return {"access_token": access_token, "token_type": "bearer"}
 
 
@@ -37,6 +43,7 @@ async def create_user(
     username: str = Form(...),
     password: str = Form(...),
     role: str = Form(...),
+    place_name: str = Form(...),
     db: Session = Depends(get_db)
 ):
     user = crud.check(User,"username", username, db)    #Check the username is Unique or not
@@ -49,12 +56,13 @@ async def create_user(
         
     hashed_password = Hash.bcrypt(password)
     print(role)
+    print(place_name)
     # Get ID for the user
     if role == 'blood-bank-admin': 
-        blood_bank_id = crud.id_by_role(role, db)
+        blood_bank_id = crud.id_by_role(role, place_name, db)
         hospital_id = None
     else: # hospital-admin
-        hospital_id = crud.id_by_role(role, db)
+        hospital_id = crud.id_by_role(role, place_name, db)
         blood_bank_id = None
         
     new_user = User(
