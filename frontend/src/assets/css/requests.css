@@ -1,4 +1,217 @@
-#h1{
-    color: red;
-    background-color: black;
+:root {
+    --main-background: #d0c9da;
+    --little-containers: #ADBBDA;
+    --border: #50E3C2;
+    --header-text-color: #3D52A0;
+    --buttons: #3A9D8C;
+    --text: #8B0000;
+    --second-text-color: #7091E6;
+    --boxes: #8697C4;
+    --approve-req: #3B945E;
+    --decline-req: #E43D12;
+    --redirect-req: #A4A71E;
+    }
+
+.main-container {
+    height: 100vh;
+    width: 100%;
+    background-color: var(--main-background);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+#header-section {
+    height: 10%;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    background-color: var(--little-containers);
+    border-radius: 5px;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+.container {
+    width: 94%;
+    height: 100%;
+}
+
+.nav-cont {
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.nav-cont .title {
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.nav-cont .title img {
+    height: 80%;
+    width: 20%;
+}
+
+.nav-cont .title p {
+    margin: 0;
+}
+
+.nav-cont .buttons {
+    width: 27%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 0;
+    margin: 0;
+    align-items: center;
+}
+
+#header-section .buttons i {
+    width: 30%;
+    text-align: center;
+}
+
+#header-section .buttons a {
+    text-decoration: none;
+    width: 100%;
+}
+
+#requests-section {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    height: 89%;
+}
+
+#requests-section .req-cont {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    height: 100%;
+}
+
+#requests-section .req-box {
+    width: 100%;
+    height: 47.5%;
+    background-color: var(--little-containers);
+    border-radius: 20px;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+.req-cont #pending-requests h3,
+.req-cont #requests-history h3 {
+    padding: 10px 0px 0px 20px;
+    margin: 0;
+}
+
+.req-cont #pending-requests .incoming-reqs,
+.req-cont #requests-history .incoming-reqs {
+    padding: 0 20px;
+    height: 85%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.req-cont #pending-requests .incoming-reqs .pending-req,
+.req-cont #requests-history .incoming-reqs .req-history {
+    height: 28%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--boxes);
+    border-radius: 20px;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+#pending-requests .incoming-reqs .pending-req .req-details,
+#requests-history .incoming-reqs .req-history .req-details {
+    padding-left: 10px;
+    width: 30%;
+}
+
+#pending-requests .incoming-reqs .pending-req .req-details p,
+#requests-history .incoming-reqs .req-history .req-details p {
+    margin: 0;
+}
+
+#pending-requests .incoming-reqs .pending-req .actin-buttons {
+    padding-right: 10px;
+    width: 30%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+}
+
+#pending-requests .incoming-reqs .pending-req .actin-buttons button {
+    width: 30%;
+    height: 50%;
+    cursor: pointer;
+    border-radius: 10px;
+    border: none;
+    line-height: 1.5;
+    font-size: 14px;
+}
+
+#pending-requests .incoming-reqs .pending-req .actin-buttons #approveBtn {
+    background-color: var(--approve-req);
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+#pending-requests .incoming-reqs .pending-req .actin-buttons #approveBtn:hover {
+    background-color: #34c26a;
+    transform: scale(1.05);
+    font-size: 14px;
+}
+
+#pending-requests .incoming-reqs .pending-req .actin-buttons #declineBtn {
+    background-color: var(--decline-req);
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+#pending-requests .incoming-reqs .pending-req .actin-buttons #declineBtn:hover {
+    background-color: #f85a32;
+    transform: scale(1.05);
+    font-size: 14px;
+}
+
+#pending-requests .incoming-reqs .pending-req .actin-buttons #redirectBtn {
+    background-color: var(--redirect-req);
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+#pending-requests .incoming-reqs .pending-req .actin-buttons #redirectBtn:hover {
+    background-color: #dcdf2a;
+    transform: scale(1.05);
+    font-size: 14px;
+}
+
+#requests-history .incoming-reqs .req-history .req-status {
+    width: 15%;
+    height: 50%;
+    display: flex;
+    padding-right: 10px;
+}
+
+#requests-history .incoming-reqs .req-history .req-status span {
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    align-items: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: green;
+    border: 0;
+    border-radius: 10px;
 }
