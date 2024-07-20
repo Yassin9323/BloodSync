@@ -76,7 +76,8 @@ async def create_user(
     )
     try:
         crud.save(new_user, db)
-        return {"Sucessful Registiration"}
+        access_token = token.create_access_token(data={"sub": email, "role": role, "place_name": place_name})
+        return {"access_token": access_token, "token_type": "bearer"}
     except Exception as e:
         db.rollback()
         raise HTTPException(status_code=500, detail=str(e))
