@@ -60,7 +60,7 @@ async def total_hospital_requests(name, db: Session = Depends(get_db), current_u
     return {"total_requests": total_requests}    
 
     
-@router.post("")
+@router.post("/create_request")
 async def create_request(
     name: str,
     blood_type: str = Form(...),

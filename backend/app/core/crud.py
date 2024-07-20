@@ -80,19 +80,21 @@ def check(cls, parm, value, db: Session = db):
     user = db.query(cls).filter(class_parm == value).first()
     return user
     
-def id_by_role(role, db: Session = db):
+def id_by_role(role, name, db: Session = db):
     """Return the ID of the user by role"""
     if role == 'blood-bank-admin':
-        blood_bank = check(BloodBank, 'name', "Cairo-BloodBank", db)
+        blood_bank = check(BloodBank, 'name', name, db)
         if blood_bank:
             blood_bank_id = blood_bank.id
             print (blood_bank_id)
             return blood_bank_id
 
     else: # hospital-admin
-        hospital_id = None
-#We need here to handle the hospital_ID for the user 
-        return hospital_id
+        hospital = check(Hospital, 'name', name, db)
+        if hospital:
+            hospital_id = hospital.id
+            print (hospital_id)
+            return hospital_id
     
 def get_hospital(name, db: Session = db):
     h_name = name.capitalize()

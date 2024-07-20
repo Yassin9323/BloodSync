@@ -41,6 +41,12 @@ document.getElementById('register-form').addEventListener('submit', function(eve
         isValid = false;
     }
 
+    const place_name = document.getElementById('place_name');
+    if (!place_name.value) {
+        document.getElementById('placeError').style.display = 'block';
+        isValid = false;
+    }
+
     // Validate password
     const password = document.getElementById('password');
     if (!password.value.trim()) {

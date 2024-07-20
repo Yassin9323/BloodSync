@@ -40,22 +40,24 @@ $(document).ready(function() {
                 if (response.access_token) {
                     console.log("Access token received:", response.access_token); // Debugging line
                     localStorage.setItem('accessToken', response.access_token);
-                    localStorage2.setItem('role', response.role)
-
+                    
                     var token = parseJwt(response.access_token);
                     var role = token.role;
+                    var place_name = token.place_name;
+                    localStorage.setItem('role', role)
+                    localStorage.setItem('place_name', place_name)
 
                     switch (role) {
                         case 'blood-bank-admin':
-                            console.log(role)
+                            // console.log(role)
                             window.location.href = '/bloodbank/dashboard';
                             break;
                         case 'hospital-admin':
-                            console.log(role)
+                            // console.log(role)
                             window.location.href = '/cairo_hospital/dashboard';
                             break;
                         default:
-                            console.log(role)
+                            // console.log(role)
                             window.location.href = '/';
                             break;
                     }
@@ -92,14 +94,4 @@ $(document).ready(function() {
 
         return JSON.parse(jsonPayload);
     }
-
-    // Global AJAX setup to include Authorization header
-    $.ajaxSetup({
-        beforeSend: function(xhr) {
-            var token = localStorage.getItem('accessToken');
-            if (token) {
-                xhr.setRequestHeader('Authorization', 'Bearer ' + token);
-            }
-        }
-    });
 });

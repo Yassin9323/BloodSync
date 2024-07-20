@@ -1,29 +1,12 @@
+import { setupAjax, initializeRouteHandling } from './utils.js';
 $(document).ready(function() {
-    // Global AJAX setup to include Authorization header
-    $.ajaxSetup({
-        beforeSend: function(xhr) {
-            var token = localStorage.getItem('accessToken');
-            var role = localStorage2.getItem('role')
-            if (token) {
-                xhr.setRequestHeader('Authorization', 'Bearer ' + token);
-            }
-        }
-    });
-    const route = window.location.pathname.replace('/', '');
-    route_list = route.split("/");
-    if (route_list[0] === "bloodbank" && role === "blood-bank-admin") {
-        authority = route_list[0]
 
-    } if (route_list[0] === "bloodbank" && role === "hospital-admin") {
-            console.error(`Not Authorized:`);
+    setupAjax();
+    const authority = initializeRouteHandling();
 
-    } if (route_list[0] != "bloodbank" ) {
-        x = route_list[0].split("_")
-    }
-
-    
     // Function to access the blood bank inventory endpoint
     function getInventory() {
+        // console.log(authority)
         $.ajax({
             url: `http://127.0.0.1:8000/${authority}/dashboard/inventory`,
             type: 'GET',
