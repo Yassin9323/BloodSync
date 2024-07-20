@@ -13,18 +13,14 @@ export function setupAjax() {
 export function initializeRouteHandling() {
     var role = localStorage.getItem('role');
     var place_name = localStorage.getItem('place_name');
-
-    if (place_name) { // Ensure place_name is not null
-        place_name = place_name.replace('-', '_').toLowerCase();
-    }
-
+    
     // console.log(role);
-    // console.log(place_name);
+    console.log(place_name);
     
     
     const route = window.location.pathname.replace('/', '');
     const route_list = route.split("/");
-    console.log(route_list[0]);
+    // console.log(route_list[0]);
     let authority = null;
 
     if (route_list[0] === "bloodbank" && role === "blood-bank-admin") {

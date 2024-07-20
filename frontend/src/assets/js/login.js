@@ -44,9 +44,11 @@ $(document).ready(function() {
                     var token = parseJwt(response.access_token);
                     var role = token.role;
                     var place_name = token.place_name;
+                    if (place_name) { // Ensure place_name is not null
+                        place_name = place_name.replace('-', '_').toLowerCase();
+                    }
                     localStorage.setItem('role', role)
                     localStorage.setItem('place_name', place_name)
-
                     switch (role) {
                         case 'blood-bank-admin':
                             // console.log(role)
@@ -54,11 +56,11 @@ $(document).ready(function() {
                             break;
                         case 'hospital-admin':
                             // console.log(role)
-                            window.location.href = '/cairo_hospital/dashboard';
+                            window.location.href = `/${place_name}/dashboard`;
                             break;
                         default:
                             // console.log(role)
-                            window.location.href = '/';
+                            // window.location.href = '/';
                             break;
                     }
                 } else {

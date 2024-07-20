@@ -27,6 +27,7 @@ def login(request:OAuth2PasswordRequestForm = Depends(), db: Session = Depends(g
         raise HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
                             detail=f"Incorrect password")
     # print(user.role)
+    print(type(request))
     if user.role == "blood-bank-admin":
         place_name = "Cairo-BloodBank"
     else:
@@ -75,7 +76,7 @@ async def create_user(
     )
     try:
         crud.save(new_user, db)
-        return {"message": "Successful Registration"}
+        return {"Sucessful Registiration"}
     except Exception as e:
         db.rollback()
         raise HTTPException(status_code=500, detail=str(e))
