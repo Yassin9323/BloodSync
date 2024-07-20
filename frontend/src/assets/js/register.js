@@ -57,7 +57,7 @@ document.getElementById('register-form').addEventListener('submit', function(eve
     // If the form is valid, submit it
     if (isValid) {
         this.submit();
-        window.location.href = '/login';
+        // window.location.href = '/login';
     }
 });
 
