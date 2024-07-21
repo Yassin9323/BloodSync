@@ -1,7 +1,10 @@
 const file = window.location.pathname.replace('/', '');
 var file_list = file.split("/");
-import(`./assets/js/${file_list[1]}.js`)
-
+if (!file_list[1]){
+  import(`./assets/js/${file_list[0]}.js`)
+} else {
+  import(`./assets/js/${file_list[1]}.js`)
+}
 $(document).ready(function() {
   $('#error-message').hide();
 
@@ -13,7 +16,7 @@ $(document).ready(function() {
   var url_requests = `${authority}/requests`
   console.log("APP.JS")
   console.log(route)
-  // console.log(url_dashboard) // cairo_hospital/dashboard
+  console.log(url_dashboard) // cairo_hospital/dashboard
 
   const routes = {
       [`${url_dashboard}`]: { page: 'dashboard', style: 'dashboard.css' },   // Navigating to any Dashboard page dynamically

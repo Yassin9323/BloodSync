@@ -6,6 +6,9 @@ export function setupAjax() {
             if (token) {
                 xhr.setRequestHeader('Authorization', 'Bearer ' + token);
             }
+            else{
+                window.location.href = '/login';
+            }
         }
     });
 }

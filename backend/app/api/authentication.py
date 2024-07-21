@@ -27,7 +27,7 @@ def login(request:OAuth2PasswordRequestForm = Depends(), db: Session = Depends(g
         raise HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
                             detail=f"Incorrect password")
     # print(user.role)
-    print(type(request))
+    # print(type(request))
     if user.role == "blood-bank-admin":
         place_name = "Cairo-BloodBank"
     else:
