@@ -1,4 +1,154 @@
-#h1{
-    color: red;
-    background-color: black;
+:root {
+    --main-background: #d0c9da;
+    --little-containers: #ADBBDA;
+    --border: #50E3C2;
+    --header-text-color: #3D52A0;
+    --buttons: #3A9D8C;
+    --text: #8B0000;
+    --second-text-color: #7091E6;
+    --boxes: #8697C4;
+    --approve-req: #3B945E;
+    --decline-req: #E43D12;
+    --redirect-req: #A4A71E;
+    }
+
+.main-container {
+    height: 100vh;
+    width: 100%;
+    background-color: var(--main-background);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+#header-section {
+    height: 10%;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    background-color: var(--little-containers);
+    border-radius: 5px;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+.container {
+    width: 94%;
+    height: 100%;
+}
+
+.nav-cont {
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.nav-cont .title {
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.nav-cont .title img {
+    height: 80%;
+    width: 20%;
+}
+
+.nav-cont .title p {
+    margin: 0;
+}
+
+.nav-cont .buttons {
+    width: 27%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 0;
+    margin: 0;
+    align-items: center;
+}
+
+#header-section .buttons i {
+    width: 30%;
+    text-align: center;
+}
+
+#header-section .buttons a {
+    text-decoration: none;
+    width: 100%;
+}
+
+#inventory-section {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    height: 89%;
+}
+
+#inventory-section .inv-cont {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    height: 100%;
+}
+
+#inventory-section .req-box {
+    width: 100%;
+    height: 98%;
+    background-color: var(--little-containers);
+    border-radius: 20px;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.inv-cont #inventory-cont h1 {
+    width: 97%;
+    padding: 10px 0;
+    margin: 0;
+}
+
+.inv-cont #inventory-cont .inv-table {
+    width: 97%;
+    height: 90%;
+    table-layout: fixed;
+    border-collapse: collapse;
+    text-align: left;
+    padding: 0px 0px 0px 20px;
+}
+
+.inv-cont #inventory-cont .inv-table thead,
+.inv-cont #inventory-cont .inv-table tbody {
+    width: 100%;
+}
+
+.inv-cont #inventory-cont .inv-table thead tr th {
+    padding-bottom: 15px;
+    font-size: 20px;
+    /* letter-spacing: 1px; */
+}
+
+.inv-cont #inventory-cont .inv-table thead tr,
+.inv-cont #inventory-cont .inv-table tbody tr {
+    width: 100%;
+    border-bottom: 0.5px solid rgb(224, 219, 219);
+}
+
+tr:last-child td {
+    padding: 0;
+}
+
+th:first-child, td:first-child {
+    width: 40%;
+}
+
+th:not(:first-child), td:not(:first-child) {
+    width: 20%;
 }
