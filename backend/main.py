@@ -50,11 +50,12 @@ async def register_page(request: Request):
 async def error_page(request: Request):
     return templates.TemplateResponse("index.html", {"request": request})
 
+
+
 @app.get("/{authority}/dashboard", response_class=HTMLResponse)
 async def dashboard_page(request: Request, authority):
     print(f"{authority} Dashboard Page")
     return templates.TemplateResponse("index.html", {"request": request})
-
 
 @app.get("/{authority}/inventory", response_class=HTMLResponse)
 async def bloodbank_inventory_page(request: Request, authority):
@@ -64,4 +65,4 @@ async def bloodbank_inventory_page(request: Request, authority):
 @app.get("/{authority}/requests", response_class=HTMLResponse)
 async def bloodbank_requests_page(request: Request, authority):
     print(f"{authority} requests Page")
-    return templates.TemplateResponse("index.html", {"request": request})
+    return templates.TemplateResponse("index.html", {"request": request}    )
