@@ -1,3 +1,5 @@
+import { setupAjax, initializeRouteHandling } from './utils.js';
+
 $(document).ready(function() {
     // Submit login form
     $(document).on('submit', '#login-form', function(event) {
@@ -52,7 +54,7 @@ $(document).ready(function() {
                     switch (role) {
                         case 'blood-bank-admin':
                             // console.log(role)
-                            window.location.href = '/bloodbank/dashboard';
+                            window.location.href = `/bloodbank/dashboard`;
                             break;
                         case 'hospital-admin':
                             // console.log(role)

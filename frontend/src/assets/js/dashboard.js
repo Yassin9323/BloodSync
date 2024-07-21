@@ -5,6 +5,7 @@ $(document).ready(function() {
     const authority = initializeRouteHandling();
 
     // Function to access the blood bank inventory endpoint
+    
     function getInventory() {
         // console.log(authority)
         $.ajax({
@@ -12,7 +13,19 @@ $(document).ready(function() {
             type: 'GET',
             success: function(response) {
                 console.log(`${authority} inventory data:`, response);
-                // Handle the response data
+
+                // const tbody = $('#inventory-table tbody');
+                // tbody.empty(); // Clear existing table rows
+                // const data = response.inventory
+
+                // data.forEach(item => {
+                //     const row = `<tr>
+                //         <td>${item.blood_type}</td>
+                //         <td>${item.available_units}</td>
+                //     </tr>`;
+                //     tbody.append(row);
+                // });
+        
             },
             error: function(xhr, status, error) {
                 console.error(`Error accessing ${authority} inventory:`, status, error);
