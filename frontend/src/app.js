@@ -21,7 +21,7 @@ $(document).ready(function() {
   const routes = {
       [`${url_dashboard}`]: { page: 'dashboard', style: 'dashboard.css' },   // Navigating to any Dashboard page dynamically
       [`${url_inventory}`]: { page: 'inventory', style: 'inventory.css' },  // Navigating to any inventory page dynamically
-      [`${url_requests}`]:  { page: 'requests', style: 'requests.css' },   // Navigating to any requests page dynamically
+      [`${url_requests}`]:  { page: 'req-form', style: 'req-form.css' },   // Navigating to any requests page dynamically
       'error': { page: 'error', style: 'error.css' },
       'login': { page: 'login', style: 'login.css' },
       'register': { page: 'register', style: 'register.css' },
