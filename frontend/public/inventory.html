@@ -1,98 +1,64 @@
-<div class="main-container">
-    <nav id="header-section">
-        <div class="container">
-            <div class="nav-cont">
-                <div class="title">
-                    <img src="/static/src/assets/images/logo.png" alt="">
-                    <p>Cairo Blood Bank - Inventory</p>
-                </div>
-                <ul class="buttons">
-                    <i><a href="">Dashboard</a></i>
-                    <i><a href="">Inventory</a></i>
-                    <i><a href="">Logout</a></i>
-                </ul>
-            </div>
-        </div>
-    </nav>
-    <section id="inventory-section">
-        <div class="container">
-            <div class="inv-cont">
-                <div id="inventory-cont" class="req-box">
-                    <h1>Inventory</h1>
-                    <table class="inv-table">
-                        <thead>
-                            <tr>
-                                <th>Institution</th>
-                                <th>A+</th>
-                                <th>B+</th>
-                                <th>O+</th>
-                                <th>AB+</th>
-                                <th>A-</th>
-                                <th>B-</th>
-                                <th>O-</th>
-                                <th>AB-</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>Cairo Blood Bank</td>
-                                <td>20</td>
-                                <td>39</td>
-                                <td>24</td>
-                                <td>35</td>
-                                <td>90</td>
-                                <td>120</td>
-                                <td>30</td>
-                                <td>50</td>
-                            </tr>
-                            <tr>
-                                <td>Cairo Hospital</td>
-                                <td>20</td>
-                                <td>39</td>
-                                <td>24</td>
-                                <td>35</td>
-                                <td>90</td>
-                                <td>120</td>
-                                <td>30</td>
-                                <td>50</td>
-                            </tr>
-                            <tr>
-                                <td>Ain Shams Hospital</td>
-                                <td>20</td>
-                                <td>39</td>
-                                <td>24</td>
-                                <td>35</td>
-                                <td>90</td>
-                                <td>120</td>
-                                <td>30</td>
-                                <td>50</td>
-                            </tr>
-                            <tr>
-                                <td>Giza Hospital</td>
-                                <td>20</td>
-                                <td>39</td>
-                                <td>24</td>
-                                <td>35</td>
-                                <td>90</td>
-                                <td>120</td>
-                                <td>30</td>
-                                <td>50</td>
-                            </tr>
-                            <tr>
-                                <td>Helwan Hospital</td>
-                                <td>20</td>
-                                <td>39</td>
-                                <td>24</td>
-                                <td>35</td>
-                                <td>90</td>
-                                <td>120</td>
-                                <td>30</td>
-                                <td>50</td>
-                            </tr>
-                        </tbody>
-                    </table>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blood Sync</title>
+  <link id="public-style" rel="stylesheet" href="/static/src/assets/css/styles.css">
+  <link id="public-style" rel="stylesheet" href="/static/src/assets/css/inventory.css">
+</head>
+
+<body>
+<div id="root">
+    <div class="main-container">
+        <nav id="header-section">
+            <div class="container">
+                <div class="nav-cont">
+                    <div class="title">
+                        <img src="/static/src/assets/images/logo.png" alt="">
+                        <p>{{place_name}} - Inventory</p>
+                    </div>
+                    <ul class="buttons">
+                        <i><a href="">Dashboard</a></i>
+                        <i><a href="">Inventory</a></i>
+                        <i><a href="">Logout</a></i>
+                    </ul>
                 </div>
             </div>
-        </div>
-    </section>
-</div>
+        </nav>
+        <section id="inventory-section">
+            <div class="container">
+                <div class="inv-cont">
+                    <div id="inventory-cont" class="req-box">
+                        <h1>Inventory</h1>
+                        <table class="inv-table">
+                            <thead>
+                                <tr>
+                                    <th>Institution</th>
+                                    <!-- <th>A+</th>
+                                    <th>B+</th>
+                                    <th>O+</th>
+                                    <th>AB+</th>
+                                    <th>A-</th>
+                                    <th>B-</th>
+                                    <th>O-</th>
+                                    <th>AB-</th> -->
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                   
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+  </div>
+  <script src="/static/src/assets/js/jquery-3.7.1.js"></script>
+  <script type="module" src="/static/src/assets/js/inventory.js"></script>
+</body>
+</html>

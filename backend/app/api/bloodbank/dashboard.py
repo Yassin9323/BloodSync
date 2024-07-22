@@ -88,9 +88,9 @@ async def transactions(db: Session = Depends(get_db), current_user: user.User = 
     )
     
     latest_transactions = [
-        {"hospital name": trns.hospitals.name,
-         "req.num": trns.request_id,
-         "blood type": trns.requests.blood_types.type,
+        {"hospital_name": trns.hospitals.name,
+         "req_num": trns.request_id,
+         "blood_type": trns.requests.blood_types.type,
          "units": trns.units
          }
         for trns in transactions

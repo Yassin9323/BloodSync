@@ -25,9 +25,11 @@ async def bloodbank_inventory(db: Session = Depends(get_db), current_user: user.
         {"blood_type": inv.blood_types.type, "available_units": inv.units}
         for inv in bloodbank_inventories
     ]
-    
-    return {"inventory": inventory_data,}
-
+    name2 =  cairo_bloodbank.name
+    return {"inventory":{
+        "name": name2,
+        "inventory_data": inventory_data}        
+    }
 
 @router.get("/{hospital_name}_inventory")
 async def get_hospital_inventory(hospital_name: str, db: Session = Depends(get_db), current_user: user.User = Depends(oauth2.get_current_user)):

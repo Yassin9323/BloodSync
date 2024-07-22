@@ -70,8 +70,10 @@ async def requests(name, db: Session = Depends(get_db), current_user: user.User 
         db.query(func.count(Request.id)).
         filter(Request.hospital_id == hospital.id).scalar()
     )    
-    return{"pending_requests": pending_reqs, "total_requests": total_reqs}
-
+    return {"requests": {
+            "pending": pending_reqs,
+            "total": total_reqs}
+            }
 
 @router.get("/transactions")
 async def transactions(name, db: Session = Depends(get_db), current_user: user.User = Depends(oauth2.get_current_user)):  
@@ -89,9 +91,9 @@ async def transactions(name, db: Session = Depends(get_db), current_user: user.U
     )
     
     latest_transactions = [
-        {"hospital name": trns.hospitals.name,
-         "req.num": trns.request_id,
-         "blood type": trns.requests.blood_types.type,
+        {"hospital_name": trns.hospitals.name,
+         "req_num": trns.request_id,
+         "blood_type": trns.requests.blood_types.type,
          "units": trns.units
          }
         for trns in transactions

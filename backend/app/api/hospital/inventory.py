@@ -25,5 +25,9 @@ async def hospital_inventory(name, db: Session = Depends(get_db), current_user: 
         {"blood_type": inv.blood_types.type, "available_units": inv.units}
         for inv in hospital_inventories
     ]
+    h_name = hospital.name
     
-    return {"inventory_data": inventory_data}
+    return {"inventory":{
+        "name": h_name,
+        "inventory_data": inventory_data}        
+    }

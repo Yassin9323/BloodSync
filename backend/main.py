@@ -1,7 +1,7 @@
 from fastapi import FastAPI, WebSocket, WebSocketDisconnect, Request, Depends
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
-from fastapi.responses import HTMLResponse
+from fastapi.responses import HTMLResponse, JSONResponse
 import os
 from app.api import authentication
 from app.api.bloodbank import bloodbank, websockets
@@ -52,17 +52,23 @@ async def error_page(request: Request):
 
 
 
-@app.get("/{authority}/dashboard", response_class=HTMLResponse)
-async def dashboard_page(request: Request, authority):
-    print(f"{authority} Dashboard Page")
-    return templates.TemplateResponse("index.html", {"request": request})
+@app.get("/{place_name}/dashboard", response_class=HTMLResponse)
+async def dashboard_page(request: Request, place_name):
+    print(f"{place_name} Dashboard Page")
+    return templates.TemplateResponse("dashboard.html", {"request": request, "place_name": place_name})
 
-@app.get("/{authority}/inventory", response_class=HTMLResponse)
-async def bloodbank_inventory_page(request: Request, authority):
-    print(f"{authority} inventory Page")
-    return templates.TemplateResponse("index.html", {"request": request})
+@app.get("/{place_name}/inventory", response_class=HTMLResponse)
+async def bloodbank_inventory_page(request: Request, place_name):
+    print(f"{place_name} inventory Page")
+    return templates.TemplateResponse("inventory.html", {"request": request, "place_name": place_name})
 
-@app.get("/{authority}/requests", response_class=HTMLResponse)
-async def bloodbank_requests_page(request: Request, authority):
-    print(f"{authority} requests Page")
+@app.get("/{place_name}/requests", response_class=HTMLResponse)
+async def bloodbank_requests_page(request: Request, place_name):
+    print(f"{place_name} requests Page")
     return templates.TemplateResponse("index.html", {"request": request}    )
+
+@app.get("/inventory")
+async def get_url_inventory():
+    # Here you can do any processing you need, for example querying a database
+    new_url = "/x/inventory"  # The URL you want to redirect to
+    return JSONResponse(content={"new_url": new_url})

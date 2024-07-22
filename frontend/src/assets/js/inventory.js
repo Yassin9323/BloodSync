@@ -12,6 +12,28 @@ $(document).ready(function() {
             success: function(response) {
                 console.log(`${authority} inventory:`, response);
                 // Handle the response data
+                const inv_h = $('.inv-table thead tr');
+                // inv_h.empty(); // Clear existing table rows
+                const data = response.inventory.inventory_data
+                data.forEach(item => {
+                    const row = `
+                        <th>${item.blood_type}</th>`; 
+                        inv_h.append(row);
+                });
+
+
+                const inv_b = $('.inv-table tbody tr');
+                inv_b.empty(); // Clear existing table rows
+                const data_name = response.inventory.name
+                const name = `<td>${data_name}</td>`
+                inv_b.append(name);
+                data.forEach(item => {
+                    const row = `
+                        <td>${item.available_units}</td>`; 
+                        inv_b.append(row);
+                });
+
+
             },
             error: function(xhr, status, error) {
                 console.error(`Error accessing ${authority} inventory:`, status, error);
