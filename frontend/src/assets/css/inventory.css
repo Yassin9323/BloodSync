@@ -34,7 +34,7 @@
 }
 
 .container {
-    width: 94%;
+    width: 100%;
     height: 100%;
 }
 
@@ -109,15 +109,65 @@
     align-items: center;
 }
 
-.inv-cont #inventory-cont h1 {
+.inv-cont #inventory-cont .cont {
+    display: flex;
+    flex-direction: column;
+    padding: 0 10px;
+    width: 96%;
+    background-color: var(--boxes);
+    border-radius: 20px;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+.inv-cont #inventory-cont .cont .inner-cont {
+    height: 80%;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.inv-cont #inventory-cont .cont .inner-cont .select-class {
+    height: 60%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.inv-cont #inventory-cont .cont .inner-cont .select-class .selecting {
+    height: 20%;
+    width: 40%;
+    padding-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.inv-cont #inventory-cont .cont .inner-cont .select-class .selecting select {
+    width: 45%;
+    height: 80%;
+    border-radius: 10px;
+    border: 0;
+}
+
+.inv-cont #inventory-cont #bloodbank-inv {
+    height: 30%;
+}
+
+.inv-cont #inventory-cont #hospitals-inv {
+    height: 60%;
+    display: flex;
+}
+
+.inv-cont #inventory-cont h3 {
     width: 97%;
     padding: 10px 0;
     margin: 0;
 }
 
 .inv-cont #inventory-cont .inv-table {
-    width: 97%;
-    height: 90%;
+    width: 100%;
+    height: 60%;
     table-layout: fixed;
     border-collapse: collapse;
     text-align: left;
@@ -132,7 +182,6 @@
 .inv-cont #inventory-cont .inv-table thead tr th {
     padding-bottom: 15px;
     font-size: 20px;
-    /* letter-spacing: 1px; */
 }
 
 .inv-cont #inventory-cont .inv-table thead tr,

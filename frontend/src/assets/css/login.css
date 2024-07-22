@@ -6,12 +6,18 @@
     --buttons: #3A9D8C;
     --text: #8B0000;
     --second-text-color: #7091E6;
+    --boxes: #8697C4;
+    --approve-req: #3B945E;
+    --decline-req: #E43D12;
+    --redirect-req: #A4A71E;
+    --buttons: #b12929;
+    --hover-buttons: #e73636;
     }
 
 .container {
     height: 100vh;
     width: 100%;
-    background-color: var(--main-background);
+    background-color: var(--little-containers);
 }
 
 .login-section {
@@ -28,7 +34,7 @@
     position: relative;
     height: 95%;
     width: 40%;
-    background-color: var(--little-containers);
+    background-color: var(--boxes);
     border-radius: 2%;
     display: flex;
     flex-direction: column;
@@ -42,7 +48,7 @@
     right: -60%;
     width: 65%;
     height: 55%;
-    background-color: var(--little-containers);
+    background-color: var(--boxes);
     background-image: url(../images/doctor.png);
     background-size: auto;
     background-position: center center;    
@@ -55,10 +61,10 @@
     content: '';
     position: absolute;
     left: -60%;
-    bottom: -5px;
+    bottom: -0.5px;
     width: 65%;
     height: 55%;
-    background-color: var(--little-containers);
+    background-color: var(--boxes);
     background-image: url('../images/bottom.png');
     background-size: auto;
     background-position: center center;
@@ -86,7 +92,7 @@
     padding-top: 15px;
     margin: 0;
     padding-bottom: 10px;
-    color: var(--text)
+    color: black;   
 }
 
 .login-fields {
@@ -99,19 +105,19 @@
 
 .login-fields h2 {
     margin-bottom: 0;
-    color: var(--text);
+    color: black;
 }
 
 .login-fields p {
     margin-top: 0;
-    color: var(--text);
+    color: black;
 }
 
 .fields #error-message {
     display: none;
     align-items: center;
     justify-content: space-around;
-    color: red;
+    color: var(--text);
 }
 
 .fields #error-message.show {
@@ -169,19 +175,19 @@
 #login-form button {
     width: 100%;
     height: 100%;
-    background-color: var(--header-text-color);
-    border: 1px solid;
+    background-color: var(--buttons);
+    border: 0;
     border-radius: 20px;
     transition: background-color 0.3s ease;
 }
 
 #login-form button:hover {
-    background-color: var(--second-text-color);
+    background-color: var(--hover-buttons);
     cursor: pointer;
 }
 
 .error-message {
-    color: red;
+    color: var(--text);
     /* text-align: center; */
     margin-top: 5px;
 }

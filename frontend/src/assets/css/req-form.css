@@ -151,14 +151,14 @@
     border-radius: 20px;
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
     border: 0;
-    background-color: #b12929 ;
+    background-color: #b12929;
     transition: background-color 0.3s, transform 0.3s;
     cursor: pointer;
     font-size: 14px;
 }
 
 #request-form #submitBtn:hover {
-    background-color: #e73636 ;
+    background-color: #e73636;
     transform: scale(1.05);
     font-size: 14px;
 }
