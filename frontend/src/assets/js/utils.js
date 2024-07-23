@@ -30,15 +30,15 @@ export function initializeRouteHandling() {
         authority = route_list[0];
 
     } else if (route_list[0] === "bloodbank" && role === "hospital-admin") {
-        alert("Not Authorized \n You have to sign in with BloodBank account");
         window.location.href = '/login';
+        alert("You are not authorized to do this action");
         
     } else if (route_list[0] !== "bloodbank" && role === "blood-bank-admin") {
         if (route_list[0] === "login" || route_list[0] === "register" || route_list[0] === "home" ){
             //pass
         }else{
-            alert(`Not Authorized \n You have to sign in with ${route_list[0]} account`);
             window.location.href = '/login';
+            alert("You are not authorized to do this action");
         }
         
 
@@ -51,8 +51,8 @@ export function initializeRouteHandling() {
             }else{
                 // console.log(route_list[0]);
                 // console.log("3")
-                alert(`Not Authorized \n You have to sign in with ${route_list[0]} account`);
                 window.location.href = '/login';
+                alert("You are not authorized to do this action");
             }
         }
     }

@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,35 +7,37 @@
   <link id="public-style" rel="stylesheet" href="/static/src/assets/css/styles.css">
   <link id="public-style" rel="stylesheet" href="/static/src/assets/css/dashboard.css">
 </head>
-
 <body>
   <div id="root">
     <div class="main-container">
         <div class="side-bar">
           <div class="groups">
-              <a href="" class="icon-box" id="dashboard" title="Dashboard">
-                <img src="/static/src/assets/images/red heart.png" alt="BloodSync Logo" class="logo">
+              <a href="" class="icon-box" id="dashboard_page" title="Dashboard">
+                <img src="/static/src/assets/images/main_logo.png" alt="BloodSync Logo" class="logo">
               </a>
               <!-- inventory -->
-              <a href="" class="icon-box" id="inventory_page" title="Requests">
-                <img src="/static/src/assets/images/test.png" alt="BloodSync Logo" class="logo">
+              <a href="" class="icon-box" id="inventory_page" title="Inventory">
+                <img src="/static/src/assets/images/main_inventory.png" alt="BloodSync Logo" class="logo">
               </a>
-              <a href="" class="icon-box" title="Inventory">
-                <img src="/static/src/assets/images/red heart.png" alt="BloodSync Logo" class="logo">
+              <a href="" class="icon-box" id="requests_page" title="Requests">
+                <img src="/static/src/assets/images/req2.png" alt="BloodSync Logo" class="logo">
               </a>
               <!-- test -->
-              {% if place_name != "bloodbank" %}
-                  <a href="" class="icon-box" title="Inventory">
-                    <img src="/static/src/assets/images/red heart.png" alt="BloodSync Logo" class="logo">
-                  </a>
+              {% if place_name != "Bloodbank" %}
+              <a href="" class="icon-box" id="request_form_page" title="Request_form">
+                <img src="/static/src/assets/images/main_form.png" alt="BloodSync Logo" class="logo">
+              </a>
               {% endif %}
+              <a href="" class="icon-box" id="logout" title="Logout">
+                <img src="/static/src/assets/images/logout.png" alt="BloodSync Logo" class="logo">
+              </a>
           </div>
         </div>
         <div class="dashboard-section">
           <div class="dashboard-card">
             <div class="head">
               <div class="user-name">
-                <img src="/static/src/assets/images/logo.png" alt="">
+                <img src="/static/src/assets/images/main_logo.png" alt="">
                 <p><span>{{place_name}}</span>- Dashboard</p>
               </div>
               <div id="welcome-message">
@@ -117,5 +118,7 @@
   </div>
   <script src="/static/src/assets/js/jquery-3.7.1.js"></script>
   <script type="module" src="/static/src/assets/js/dashboard.js"></script>
+  <script type="module" src="/static/src/assets/js/navigation.js"></script>
+
 </body>
 </html>

@@ -54,18 +54,27 @@ async def error_page(request: Request):
 
 @app.get("/{place_name}/dashboard", response_class=HTMLResponse)
 async def dashboard_page(request: Request, place_name):
+    place_name = place_name.capitalize()
     print(f"{place_name} Dashboard Page")
     return templates.TemplateResponse("dashboard.html", {"request": request, "place_name": place_name})
 
 @app.get("/{place_name}/inventory", response_class=HTMLResponse)
 async def bloodbank_inventory_page(request: Request, place_name):
+    place_name = place_name.capitalize()
     print(f"{place_name} inventory Page")
     return templates.TemplateResponse("inventory.html", {"request": request, "place_name": place_name})
 
 @app.get("/{place_name}/requests", response_class=HTMLResponse)
 async def bloodbank_requests_page(request: Request, place_name):
+    place_name = place_name.capitalize()
     print(f"{place_name} requests Page")
-    return templates.TemplateResponse("index.html", {"request": request}    )
+    return templates.TemplateResponse("requests.html", {"request": request, "place_name": place_name})
+
+@app.get("/{place_name}/request_form", response_class=HTMLResponse)
+async def hospital_req_form(request: Request, place_name):
+    place_name = place_name.capitalize()
+    print(f"{place_name} requests Page")
+    return templates.TemplateResponse("req_form.html", {"request": request, "place_name": place_name})
 
 @app.get("/inventory")
 async def get_url_inventory():

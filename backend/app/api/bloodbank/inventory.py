@@ -42,8 +42,9 @@ async def get_hospital_inventory(hospital_name: str, db: Session = Depends(get_d
         for inv in hospital_inventories
     ]
 
-    return {
+    return {"details":{
         "name": hospital.name,
         "inventory": inventory_data
+    }
     }
 

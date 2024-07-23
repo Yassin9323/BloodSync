@@ -11,6 +11,7 @@ from app.models.hospitals_Inventory import HospitalInventory
 from app.schemas import user
 from app.utils import oauth2
 
+
 router = APIRouter(prefix="/requests")
 
 
@@ -25,9 +26,9 @@ async def requests(db: Session = Depends(get_db), current_user: user.User = Depe
         options(joinedload(Request.blood_types))
         )
     pending_requests = [
-        {"hospital name": req.hospitals.name,
-         "req.num": req.id,
-         "blood type": req.blood_types.type,
+        {"hospital_name": req.hospitals.name,
+         "req_num": req.id,
+         "blood_type": req.blood_types.type,
          "units": req.units,
          "status": req.status
          }
@@ -46,9 +47,9 @@ async def requests(db: Session = Depends(get_db), current_user: user.User = Depe
         options(joinedload(Request.blood_types))
         )
     total_requests = [
-        {"hospital name": req.hospitals.name,
-         "req.num": req.id,
-         "blood type": req.blood_types.type,
+        {"hospital_name": req.hospitals.name,
+         "req_num": req.id,
+         "blood_type": req.blood_types.type,
          "units": req.units,
          "status": req.status
          }
@@ -56,20 +57,22 @@ async def requests(db: Session = Depends(get_db), current_user: user.User = Depe
     ]
     return {"total_requests": total_requests}
 
+# Define a Pydantic model
 
-@router.put("/update_status")
+
+@router.post("/update_status")
 async def update_request_status(
-    request_id: str,
-    action: str = Form(...),
+    x: user.UpdateRequestStatus,  # Use the Pydantic model here
     db: Session = Depends(get_db),
     current_user: user.User = Depends(oauth2.get_current_user)
 ):
+    print("Update Status \n\n\n")
     """Update the status of a blood request"""
-    request = db.query(Request).filter(Request.id == request_id).first()
+    request = db.query(Request).filter(Request.id == x.request_id).first()
     if not request:
         raise HTTPException(status_code=404, detail="Request not found")
     
-    if action not in ["approve", "decline", "redirect"]:
+    if x.action not in ["approve", "decline", "redirect"]:
         raise HTTPException(status_code=400, detail="Invalid action")
     
     if request.status != "pending":
@@ -79,8 +82,8 @@ async def update_request_status(
         filter(HospitalInventory.blood_type_id == request.blood_type_id).
         filter(HospitalInventory.hospital_id == request.hospital_id).first()
         )
-    request.status = action
-    if action == "approve":
+    # request.status = action
+    if x.action == "approve":
         bloodbank_inv = db.query(BankInventory).filter(BankInventory.blood_type_id == request.blood_type_id).first()
         request.status = "approved"
         if bloodbank_inv.units < request.units:
@@ -89,7 +92,7 @@ async def update_request_status(
             bloodbank_inv.units = bloodbank_inv.units - request.units 
             hospital_inv.units = hospital_inv.units + request.units
                
-    elif action == "decline":
+    elif x.action == "decline":
         request.status = "declined"
 
     else:
@@ -100,7 +103,7 @@ async def update_request_status(
             if inv.units > request.units:
                 inv.units = inv.units - request.units
                 hospital_inv.units = hospital_inv.units + request.units
-                request.status = "approved"
+                request.status = "redirected"
 
     db.commit()
     db.refresh(request)
@@ -108,4 +111,8 @@ async def update_request_status(
     db.refresh(hospital_inv)
 
     
-    return {"detail": f"{request.status}", "request_id": request.id}
+    return {"details":{
+            "status": request.status,
+            "request_id": request.id
+    }
+    }

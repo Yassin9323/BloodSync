@@ -20,9 +20,12 @@
                         <p>{{place_name}} - Inventory</p>
                     </div>
                     <ul class="buttons">
-                        <i><a href="">Dashboard</a></i>
-                        <i><a href="">Inventory</a></i>
-                        <i><a href="">Logout</a></i>
+                        <i><a href="" id="dashboard_page">Dashboard</a></i>
+                        <i><a href="" id="inventory_page">Inventory</a></i>
+                        {% if place_name != "Bloodbank" %}
+                            <i><a href="" id="request_form_page">Request Blood</a></i>
+                        {% endif %}
+                        <i><a href="" id="logout">Logout</a></i>
                     </ul>
                 </div>
             </div>
@@ -31,21 +34,15 @@
             <div class="container">
                 <div class="inv-cont">
                     <div id="inventory-cont" class="req-box">
-                        <div class="cont" id="bloodbank-inv">
+                        {% if place_name != "Bloodbank" %}
+                            <div class="cont" id="Bloodbank-inv" style="background-color: blueviolet;">
                             <div class="inner-cont">
                                 <h3>Bloodbank's Inventory</h3>
-                                <table class="inv-table">
+                                <table class="inv-table" id="inv-table-bank">
                                     <thead>
                                         <tr>
                                             <th>Institution</th>
-                                            <th>A+</th>
-                                            <th>B+</th>
-                                            <th>O+</th>
-                                            <th>AB+</th>
-                                            <th>A-</th>
-                                            <th>B-</th>
-                                            <th>O-</th>
-                                            <th>AB-</th>
+                                            
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -55,43 +52,66 @@
                                     </tbody>
                                 </table>
                             </div>
-                        </div>
-                        <div class="cont" id="hospitals-inv">
+                            </div>
+                        {% else %}
+                            <div class="cont" id="Bloodbank-inv">
                             <div class="inner-cont">
-                                <h3>Hospitals Inventory</h3>
-                                <div class="select-class">
-                                    <div class="selecting">
-                                        <label for="">A Hospital to show their inventory:</label>
-                                        <select name="" id="">
-                                            <option value="">Cairo Hospital</option>
-                                            <option value="">Ain Shams Hospital</option>
-                                            <option value="">Giza Hospital</option>
-                                            <option value="">Helwan Hospital</option>
-                                        </select>
-                                    </div>
-                                    <table class="inv-table">
-                                        <thead>
-                                            <tr>
-                                                <th>Institution</th>
-                                                <th>A+</th>
-                                                <th>B+</th>
-                                                <th>O+</th>
-                                                <th>AB+</th>
-                                                <th>A-</th>
-                                                <th>B-</th>
-                                                <th>O-</th>
-                                                <th>AB-</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
+                                <h3>Bloodbank's Inventory</h3>
+                                <table class="inv-table" id="inv-table-bank">
+                                    <thead>
+                                        <tr>
+                                            <th>Institution</th>
                                             
-                                            </tr>
-                                        </tbody>
-                                    </table>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                        
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            </div>
+                        {% endif %}
+                        <!-- hide container -->
+                        {% if place_name == "Bloodbank" %}
+                            <div class="cont" id="hospitals-inv">
+                                <div class="inner-cont">
+                                    <h3>Hospitals Inventory</h3>
+                                    <div class="select-class">
+                                        <div class="selecting">
+                                            <label for="select_hospital">A Hospital to show their inventory:</label>
+                                            <select name="select_hospital" id="select_hospital">
+                                                <option value="cairo">Cairo Hospital</option>
+                                                <option value="ainshams">Ain Shams Hospital</option>
+                                                <option value="giza">Giza Hospital</option>
+                                                <option value="helwan">Helwan Hospital</option>
+                                            </select>
+                                        </div>
+                                        <table class="inv-table" id="inv-table-hospital">
+                                            <thead>
+                                                <tr>
+                                                    <th>Institution</th>
+                                                    <th>A-</th>
+                                                    <th>O+</th>
+                                                    <th>B-</th>
+                                                    <th>O-</th>
+                                                    <th>B+</th>
+                                                    <th>AB-</th>
+                                                    <th>AB+</th>
+                                                    <th>A+</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        {% endif %}
                     </div>
                 </div>
             </div>
@@ -99,6 +119,7 @@
     </div>
   </div>
 <script src="/static/src/assets/js/jquery-3.7.1.js"></script>
-  <script type="module" src="/static/src/assets/js/inventory.js"></script>
+<script type="module" src="/static/src/assets/js/inventory.js"></script>
+<script type="module" src="/static/src/assets/js/navigation.js"></script>
 </body>
 </html>

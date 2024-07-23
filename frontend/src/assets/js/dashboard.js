@@ -114,26 +114,7 @@ $(document).ready(function() {
         });
     }
 
-    function url() {
-        $("#inventory_page").click(function(event){
-            event.preventDefault();
-            $.ajax({
-                url: "/inventory",  // URL of the FastAPI endpoint
-                type: "GET",
-                success: function(response){
-                    // Do something with the response
-                    var link = response.new_url
-                    var link = link.replace('x', `${authority}`);
-                    console.log(link)
-                    window.location.href =`http://127.0.0.1:8000${link}`                    // Redirect to the new URL
-                },
-                error: function(error){
-                    console.log("Error:", error);
-                }
-            });
-    });
-
-    }
+    
 
 
     // Calling the functions to connect endpoints
@@ -141,5 +122,5 @@ $(document).ready(function() {
     getInventory_total_units();
     getRequests();
     getTransactions();
-    url();
+    // url();
 });

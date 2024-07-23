@@ -26,3 +26,7 @@ class Token(BaseModel):
 
 class TokenData(BaseModel):
     email: Optional[str] = None
+    
+class UpdateRequestStatus(BaseModel):
+    request_id: str
+    action: str

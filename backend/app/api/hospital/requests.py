@@ -59,7 +59,7 @@ async def total_hospital_requests(name, db: Session = Depends(get_db), current_u
     ]
     return {"total_requests": total_requests}    
 
-    
+
 @router.post("/create_request")
 async def create_request(
     name: str,
@@ -68,14 +68,15 @@ async def create_request(
     db: Session = Depends(get_db),
     current_user: user.User = Depends(oauth2.get_current_user)
     ):
+    print(blood_type)
     """Create Blood Request to the BloodBank"""
     hospital = crud.get_hospital(name, db)
-    
+
     # Get BloodBank ID
     cairo_bloodbank = crud.check(BloodBank, "name", "Cairo-BloodBank", db)
     if not cairo_bloodbank:
         raise HTTPException(status_code=404, detail="Cairo-BloodBank not found")
-    
+
     # Get BloodType ID
     blood_type_obj = db.query(BloodType).filter(BloodType.type == blood_type).first()
 
@@ -86,8 +87,8 @@ async def create_request(
         hospital_id = hospital.id,
         blood_bank_id = cairo_bloodbank.id,
     )
-    
+
     # Save Request
     crud.save(new_request, db)
-    
-    return {"detail": "Request created", "request_id": new_request.id}
+
+    return {"request_id": new_request.id} 
