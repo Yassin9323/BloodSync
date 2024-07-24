@@ -4,6 +4,8 @@ $(document).ready(function() {
     setupAjax();
     const authority = initializeRouteHandling();
 
+    
+
     // Function to access the blood bank inventory endpoint
     
     function getInventory() {
@@ -123,4 +125,14 @@ $(document).ready(function() {
     getRequests();
     getTransactions();
     // url();
+
+    const route = window.location.pathname.replace('/', '');
+    const route_list = route.split("/");
+    var place_name = localStorage.getItem('place_name');
+
+    const Authorization_mssg = localStorage.getItem('Authorization_mssg');
+        if (Authorization_mssg && route_list[0] == place_name) {
+            alert(Authorization_mssg);
+            localStorage.removeItem('Authorization_mssg'); // Clear the message
+        }
 });
