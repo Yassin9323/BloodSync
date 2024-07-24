@@ -45,7 +45,7 @@ async def login_page(request: Request):
 @app.get("/register", response_class=HTMLResponse)
 async def register_page(request: Request):
     print("Register page")
-    return templates.TemplateResponse("index.html", {"request": request})
+    return templates.TemplateResponse("register.html", {"request": request})
 
 @app.get("/error", response_class=HTMLResponse)
 async def error_page(request: Request):
