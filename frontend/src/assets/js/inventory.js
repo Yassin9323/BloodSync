@@ -3,6 +3,35 @@ $(document).ready(function() {
 
     setupAjax();
     const authority = initializeRouteHandling();
+
+     // WebSockets Realtime 
+     const websocket = new WebSocket('ws://127.0.0.1:8000/ws/inventory');
+
+     websocket.onmessage = function(event) {
+         const message = event.data;
+        //  console.log(`WebSocket message received: ${message}`);
+ 
+         switch (message) {
+             case "inventory_update":
+                get_inventory();
+                 break;
+             case "inventory_hospital_update":
+                getHospital_inventory();
+                 break;
+             default:
+                 console.warn(`Unknown WebSocket message: ${message}`);
+         }
+     };
+ 
+     websocket.onclose = function() {
+         console.log('WebSocket connection closed');
+         // Optional: Implement reconnection logic here
+     };
+ 
+     websocket.onerror = function(error) {
+         console.log('WebSocket error: ' + error);
+         // Optional: Implement error handling or reconnection logic here
+     };
     
     // Function to access the Bloodbank_inventory endpoint
     function get_inventory() {

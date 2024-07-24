@@ -4,6 +4,34 @@ $(document).ready(function() {
     setupAjax();
     const authority = initializeRouteHandling();
 
+     // WebSockets Realtime 
+     const websocket = new WebSocket('ws://127.0.0.1:8000/ws/create_request');
+
+     websocket.onmessage = function(event) {
+         const message = event.data;
+        //  console.log(`WebSocket message received: ${message}`);
+ 
+         switch (message) {
+             case "create_reqs_update":
+                create_request();
+                 break;
+             default:
+                 console.warn(`Unknown WebSocket message: ${message}`);
+         }
+     };
+ 
+     websocket.onclose = function() {
+         console.log('WebSocket connection closed');
+         // Optional: Implement reconnection logic here
+     };
+ 
+     websocket.onerror = function(error) {
+         console.log('WebSocket error: ' + error);
+         // Optional: Implement error handling or reconnection logic here
+     };
+
+
+    function create_request(){
     $(document).on('submit', '#request-form', function(event) {
         event.preventDefault();
         
@@ -44,4 +72,6 @@ $(document).ready(function() {
                 });
             // });
     });
+};
+    create_request();
 });

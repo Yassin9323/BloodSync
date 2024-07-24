@@ -7,6 +7,7 @@ from app.models.hospitals_Inventory import HospitalInventory
 from app.models.hospitals import Hospital
 from app.schemas import user
 from app.utils import oauth2
+from app.api.websockets import manager
 
 router = APIRouter(prefix="/{name}_hospital/inventory", tags=["Hospital"])
 
@@ -27,6 +28,7 @@ async def hospital_inventory(name, db: Session = Depends(get_db), current_user: 
     ]
     h_name = hospital.name
     
+    await manager.broadcast("inventory_update")
     return {"inventory":{
         "name": h_name,
         "inventory_data": inventory_data}        
