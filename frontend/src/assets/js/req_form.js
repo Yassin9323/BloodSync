@@ -7,7 +7,7 @@ $(document).ready(function() {
     $(document).on('submit', '#request-form', function(event) {
         event.preventDefault();
         
-            $(document).on('click', '#submitBtn', function() {
+            $(document).click('#submitBtn', function() {
                 const blood_type = $('#blood_type').val();
                 const requested_units = $('#units').val();
                 console.log('Selected Blood Type:', blood_type);

@@ -45,7 +45,7 @@ $(document).ready(function() {
             url: `http://127.0.0.1:8000/${authority}/dashboard/inventory`,
             type: 'GET',
             success: function(response) {
-                console.log(`${authority} inventory data:`, response);
+                // console.log(`${authority} inventory data:`, response);
 
                 const tbody = $('.inventory-card table tbody');
                 tbody.empty(); // Clear existing table rows
@@ -58,7 +58,7 @@ $(document).ready(function() {
                     </tr>`;
                     tbody.append(row);
                 });
-                console.log(data);
+                // console.log(data);
             },
             error: function(xhr, status, error) {
                 console.error(`Error accessing ${authority} inventory:`, status, error);
@@ -73,7 +73,7 @@ $(document).ready(function() {
             url: `http://127.0.0.1:8000/${authority}/dashboard/inventory_total_units`,
             type: 'GET',
             success: function(response) {
-                console.log(`${authority} units data:`, response);
+                // console.log(`${authority} units data:`, response);
 
                 const num = $('#total_units');
                 num.empty(); // Clear existing table rows
@@ -94,7 +94,7 @@ $(document).ready(function() {
             url: `http://127.0.0.1:8000/${authority}/dashboard/requests`,
             type: 'GET',
             success: function(response) {
-                console.log(`${authority} requests data:`, response);
+                // console.log(`${authority} requests data:`, response);
 
                 const pending = $('#pending');
                 pending.empty(); // Clear existing table rows
@@ -121,7 +121,7 @@ $(document).ready(function() {
             url: `http://127.0.0.1:8000/${authority}/dashboard/transactions`,
             type: 'GET',
             success: function(response) {
-                console.log(`${authority} transactions data:`, response);
+                // console.log(`${authority} transactions data:`, response);
 
                 const transaction = $('.history-table table tbody');
                 transaction.empty(); // Clear existing table rows
@@ -135,7 +135,7 @@ $(document).ready(function() {
                         <td>${item.req_num}</td>
                     </tr>`;
                     transaction.append(row);
-                    console.log(item.hospital_name);
+                    // console.log(item.hospital_name);
                 });
             },
             error: function(xhr, status, error) {

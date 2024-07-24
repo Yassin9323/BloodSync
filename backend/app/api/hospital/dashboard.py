@@ -9,6 +9,7 @@ from app.models.transactions import Transaction
 from app.models.hospitals import Hospital
 from app.schemas import user
 from app.utils import oauth2
+from app.api.websockets import manager
 
 router = APIRouter(prefix="/{name}_hospital/dashboard", tags=["Hospital"])
 
@@ -30,7 +31,7 @@ async def inventory(name, db: Session = Depends(get_db), current_user: user.User
         {"blood_type": inv.blood_types.type, "available_units": inv.units}
         for inv in hospital_inventories
     ]
-    
+    await manager.broadcast("inventory_update")
     return {"inventory": inventory_data}
     
 @router.get("/inventory_total_units")
@@ -53,6 +54,7 @@ async def total_inventory(name, db: Session = Depends(get_db), current_user: use
     for item in inventory_data:
         total_units += item["available_units"]
         
+    await manager.broadcast("inventory_total_units_update")  
     return {"total_units": total_units}
         
 @router.get("/requests")
@@ -69,7 +71,8 @@ async def requests(name, db: Session = Depends(get_db), current_user: user.User 
     total_reqs = (
         db.query(func.count(Request.id)).
         filter(Request.hospital_id == hospital.id).scalar()
-    )    
+    )
+    await manager.broadcast("requests_update")    
     return {"requests": {
             "pending": pending_reqs,
             "total": total_reqs}
@@ -98,4 +101,6 @@ async def transactions(name, db: Session = Depends(get_db), current_user: user.U
          }
         for trns in transactions
     ]
+    
+    await manager.broadcast("transactions_update")
     return {"latest_transactions": latest_transactions}
