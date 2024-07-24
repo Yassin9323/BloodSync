@@ -7,7 +7,7 @@ $(document).ready(function() {
     $(document).on('submit', '#request-form', function(event) {
         event.preventDefault();
         
-            $(document).click('#submitBtn', function() {
+            // $(document).click('#submitBtn', function() {
                 const blood_type = $('#blood_type').val();
                 const requested_units = $('#units').val();
                 console.log('Selected Blood Type:', blood_type);
@@ -23,11 +23,25 @@ $(document).ready(function() {
                         console.log('Successful');
                         const data = response;
                         console.log(data);
+
+                        // Show the message div
+                        $('.message').removeClass('hidden').addClass('show');
+                
+                        // Check if the class is applied
+                        console.log('Message class after adding show:', $('.message').attr('class'));
+
+                        // Hide the message div after 3 seconds
+                        setTimeout(function() {
+                            $('.message').removeClass('show').addClass('hidden');
+                            
+                            // Check if the class is applied
+                            console.log('Message class after removing show:', $('.message').attr('class'));
+                        }, 3000);
                     },
                     error: function(xhr, status, error) {
                         console.error('Error updating status:', error);
                     }
                 });
-            });
+            // });
     });
 });

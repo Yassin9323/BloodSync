@@ -177,11 +177,15 @@
     align-items: center;
 }
 
-#request-form #message {
+.message.hidden {
+    display: none;
+}
+
+.message.show {
+    display: flex;
     width: 45%;
     height: 10%;
     background-color: red;
-    display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: space-around;
@@ -191,7 +195,7 @@
     background-color: var(--little-containers);
 }
 
-#request-form #message img {
+#request-form .message img {
     width: auto;
     height: 40px;
 }
