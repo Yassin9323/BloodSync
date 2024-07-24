@@ -31,6 +31,7 @@ export function initializeRouteHandling() {
         authority = route_list[0];
 
     } else if (route_list[0] === "bloodbank" && role === "hospital-admin") {
+        localStorage.setItem('Authorization_mssg', 'You were redirected bec. you are not authorized.');
         window.location.href = `/${place_name}/dashboard`;
         // alert("You are not authorized to do this action");
         
@@ -38,6 +39,7 @@ export function initializeRouteHandling() {
         if (route_list[0] === "login" || route_list[0] === "register" || route_list[0] === "home" ){
             //pass
         }else{
+            localStorage.setItem('Authorization_mssg', 'You were redirected bec. you are not authorized.');
             window.location.href = `/${place_name}/dashboard`;
             // alert("You are not authorized to do this action");
         }
@@ -52,6 +54,7 @@ export function initializeRouteHandling() {
             }else{
                 // console.log(route_list[0]);
                 // console.log("3")
+                localStorage.setItem('Authorization_mssg', 'You were redirected bec. you are not authorized.');
                 window.location.href = `/${place_name}/dashboard`;
                 // alert("You are not authorized to do this action");
             }
