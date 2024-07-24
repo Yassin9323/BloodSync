@@ -4,8 +4,34 @@ $(document).ready(function() {
     setupAjax();
     const authority = initializeRouteHandling();
 
+    // WebSockets Realtime 
+    document.addEventListener('DOMContentLoaded', () => {
+        const websocket = new WebSocket('ws://127.0.0.1:8000/ws/dashboard');
     
-
+        websocket.onmessage = function(event) {
+            const message = event.data;
+            console.log(`WebSocket message received: ${message}`);
+    
+            if (message === "inventory_update") {
+                getInventory();
+            } else if (message === "inventory_total_units_update") {
+                getInventory_total_units();
+            } else if (message === "requests_update") {
+                getRequests();
+            } else if (message === "transactions_update") {
+                getTransactions();
+            }
+        };
+    
+        websocket.onclose = function() {
+            console.log('WebSocket connection closed');
+        };
+    
+        websocket.onerror = function(error) {
+            console.log('WebSocket error: ' + error);
+        };
+    });
+    
     // Function to access the blood bank inventory endpoint
     
     function getInventory() {

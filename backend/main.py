@@ -4,11 +4,12 @@ from fastapi.templating import Jinja2Templates
 from fastapi.responses import HTMLResponse, JSONResponse
 import os
 from app.api import authentication
-from app.api.bloodbank import bloodbank, websockets
+from app.api.bloodbank import bloodbank
 from app.api.hospital import hospital
 from fastapi.middleware.cors import CORSMiddleware
 from app.schemas import user
 from app.utils import oauth2
+from backend.app.api import websockets
 
 
 app = FastAPI()
