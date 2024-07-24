@@ -39,7 +39,6 @@ $(document).ready(function() {
                         localStorage.removeItem('accessToken');
                         // const route = window.location.pathname.replace('/', '');
                         // console.log(route)
-                        localStorage.setItem('logoutMessage', 'Logged out successfully.');
                         window.location.href = '/login'
                     },
                     error: function(xhr) {

@@ -1,11 +1,7 @@
 import { setupAjax, initializeRouteHandling } from './utils.js';
 
 $(document).ready(function() {
-    const logoutMessage = localStorage.getItem('logoutMessage');
-        if (logoutMessage) {
-            alert(logoutMessage);
-            localStorage.removeItem('logoutMessage'); // Clear the message
-        }
+    
     // Submit login form
        const x = initializeRouteHandling();
     $(document).on('submit', '#login-form', function(event) {
