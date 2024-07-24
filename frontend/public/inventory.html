@@ -2,11 +2,12 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Blood Sync</title>
-  <link id="public-style" rel="stylesheet" href="/static/src/assets/css/styles.css">
-  <link id="public-style" rel="stylesheet" href="/static/src/assets/css/inventory.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blood Sync</title>
+    <link id="public-style" rel="stylesheet" href="/static/src/assets/css/styles.css">
+    <link id="public-style" rel="stylesheet" href="/static/src/assets/css/inventory.css">
+    <link rel="icon" href="/static/src/assets/images/main_logo.png" type="image/x-icon">
 </head>
 
 <body>
@@ -16,12 +17,13 @@
             <div class="container">
                 <div class="nav-cont">
                     <div class="title">
-                        <img src="/static/src/assets/images/logo.png" alt="">
+                        <img src="/static/src/assets/images/main_logo.png" alt="">
                         <p>{{place_name}} - Inventory</p>
                     </div>
                     <ul class="buttons">
                         <i><a href="" id="dashboard_page">Dashboard</a></i>
                         <i><a href="" id="inventory_page">Inventory</a></i>
+                        <i><a href="" id="requests_page">Request</a></i>
                         {% if place_name != "Bloodbank" %}
                             <i><a href="" id="request_form_page">Request Blood</a></i>
                         {% endif %}
