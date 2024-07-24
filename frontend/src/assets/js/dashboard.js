@@ -1,41 +1,46 @@
 import { setupAjax, initializeRouteHandling } from './utils.js';
-$(document).ready(function() {
 
+$(document).ready(function() {
     setupAjax();
     const authority = initializeRouteHandling();
 
     // WebSockets Realtime 
-    document.addEventListener('DOMContentLoaded', () => {
-        const websocket = new WebSocket('ws://127.0.0.1:8000/ws/dashboard');
-    
-        websocket.onmessage = function(event) {
-            const message = event.data;
-            console.log(`WebSocket message received: ${message}`);
-    
-            if (message === "inventory_update") {
+    const websocket = new WebSocket('ws://127.0.0.1:8000/ws/dashboard');
+
+    websocket.onmessage = function(event) {
+        const message = event.data;
+        console.log(`WebSocket message received: ${message}`);
+
+        switch (message) {
+            case "inventory_update":
                 getInventory();
-            } else if (message === "inventory_total_units_update") {
+                break;
+            case "inventory_total_units_update":
                 getInventory_total_units();
-            } else if (message === "requests_update") {
+                break;
+            case "requests_update":
                 getRequests();
-            } else if (message === "transactions_update") {
+                break;
+            case "transactions_update":
                 getTransactions();
-            }
-        };
-    
-        websocket.onclose = function() {
-            console.log('WebSocket connection closed');
-        };
-    
-        websocket.onerror = function(error) {
-            console.log('WebSocket error: ' + error);
-        };
-    });
-    
+                break;
+            default:
+                console.warn(`Unknown WebSocket message: ${message}`);
+        }
+    };
+
+    websocket.onclose = function() {
+        console.log('WebSocket connection closed');
+        // Optional: Implement reconnection logic here
+    };
+
+    websocket.onerror = function(error) {
+        console.log('WebSocket error: ' + error);
+        // Optional: Implement error handling or reconnection logic here
+    };
+
     // Function to access the blood bank inventory endpoint
-    
     function getInventory() {
-        // console.log(authority)
         $.ajax({
             url: `http://127.0.0.1:8000/${authority}/dashboard/inventory`,
             type: 'GET',
@@ -44,7 +49,7 @@ $(document).ready(function() {
 
                 const tbody = $('.inventory-card table tbody');
                 tbody.empty(); // Clear existing table rows
-                const data = response.inventory
+                const data = response.inventory;
 
                 data.forEach(item => {
                     const row = `<tr>
@@ -53,12 +58,11 @@ $(document).ready(function() {
                     </tr>`;
                     tbody.append(row);
                 });
-                console.log(data)
-        
+                console.log(data);
             },
             error: function(xhr, status, error) {
                 console.error(`Error accessing ${authority} inventory:`, status, error);
-                // Handle the error
+                // Optional: Implement retry or user notification here
             }
         });
     }
@@ -79,7 +83,7 @@ $(document).ready(function() {
             },
             error: function(xhr, status, error) {
                 console.error(`Error accessing ${authority} units data:`, status, error);
-                // Handle the error
+                // Optional: Implement retry or user notification here
             }
         });
     }
@@ -103,11 +107,10 @@ $(document).ready(function() {
                 const tData = response.requests.total;
                 const p2 = `<p> ${tData} </p>`;
                 total.append(p2);
-
             },
             error: function(xhr, status, error) {
                 console.error(`Error accessing ${authority} requests:`, status, error);
-                // Handle the error
+                // Optional: Implement retry or user notification here
             }
         });
     }
@@ -132,33 +135,29 @@ $(document).ready(function() {
                         <td>${item.req_num}</td>
                     </tr>`;
                     transaction.append(row);
-                    console.log(item.hospital_name)
+                    console.log(item.hospital_name);
                 });
             },
             error: function(xhr, status, error) {
                 console.error(`Error accessing ${authority} transactions:`, status, error);
-                // Handle the error
+                // Optional: Implement retry or user notification here
             }
         });
     }
 
-    
-
-
-    // Calling the functions to connect endpoints
+    // Initial data fetch
     getInventory();
     getInventory_total_units();
     getRequests();
     getTransactions();
-    // url();
 
     const route = window.location.pathname.replace('/', '');
     const route_list = route.split("/");
     var place_name = localStorage.getItem('place_name');
 
     const Authorization_mssg = localStorage.getItem('Authorization_mssg');
-        if (Authorization_mssg && route_list[0] == place_name) {
-            alert(Authorization_mssg);
-            localStorage.removeItem('Authorization_mssg'); // Clear the message
-        }
+    if (Authorization_mssg && route_list[0] === place_name) {
+        alert(Authorization_mssg);
+        localStorage.removeItem('Authorization_mssg'); // Clear the message
+    }
 });

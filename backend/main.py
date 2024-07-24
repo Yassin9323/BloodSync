@@ -9,7 +9,7 @@ from app.api.hospital import hospital
 from fastapi.middleware.cors import CORSMiddleware
 from app.schemas import user
 from app.utils import oauth2
-from backend.app.api import websockets
+from app.api import websockets
 
 
 app = FastAPI()
