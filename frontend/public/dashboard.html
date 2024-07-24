@@ -6,6 +6,7 @@
   <title>Blood Sync</title>
   <link id="public-style" rel="stylesheet" href="/static/src/assets/css/styles.css">
   <link id="public-style" rel="stylesheet" href="/static/src/assets/css/dashboard.css">
+  <link rel="icon" href="/static/src/assets/images/main_logo.png" type="image/x-icon">
 </head>
 <body>
   <div id="root">
@@ -24,7 +25,7 @@
               </a>
               <!-- test -->
               {% if place_name != "Bloodbank" %}
-              <a href="" class="icon-box" id="request_form_page" title="Request_form">
+              <a href="" class="icon-box" id="request_form_page" title="Request Blood">
                 <img src="/static/src/assets/images/main_form.png" alt="BloodSync Logo" class="logo">
               </a>
               {% endif %}
@@ -52,7 +53,7 @@
 
                   </div>
                   <div class="icon">
-                    <img src="/static/src/assets/images/request.png" alt="pending-requests">
+                    <img src="/static/src/assets/images/request-ico.png" alt="pending-requests">
                     <p>Pending Requests</p>
                   </div>
                 </div>
@@ -61,14 +62,14 @@
 
                   </div>
                   <div class="icon">
-                    <img src="/static/src/assets/images/reqs.png" alt="total-requests">
+                    <img src="/static/src/assets/images/all.png" alt="total-requests">
                     <p>Total Requests</p>
                   </div>
                 </div>
               </div>
               <div class="inventory">
                 <div class="icon">
-                  <img src="/static/src/assets/images/bags.png" alt="">
+                  <img src="/static/src/assets/images/blood-bag.png" alt="">
                   <p> Total Available Blood Bags</p>
                 </div>
                 <div class="number" id="total_units">
