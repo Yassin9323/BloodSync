@@ -123,18 +123,26 @@
 }
 
 #request-form .boxes {
-    width: 50%;
+    width: 45%;
     height: 40%;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
+    align-items: center;
 }
 
 #request-form .boxes .box {
     height: 25%;
+    width: 100%;
     display: flex;
     flex-direction: row;
     justify-content: space-around;
+    align-items: center;
+}
+
+#request-form .boxes .box label {
+    height: 60%;
+    width: 45%;
 }
 
 #request-form .boxes .box select,
@@ -144,6 +152,48 @@
     border-radius: 10px;
     border: 0;
     text-align: center;
+    background-color: var(--boxes);
+    border-radius: 10px;
+    border: 0;
+    text-align: center;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+#request-form .boxes .box select:focus,
+#request-form .boxes .box input:focus {
+    border: 0;
+    outline: none;
+}
+
+#request-form .boxes .box span {
+    width: 45%;
+    height: 60%;
+    border-radius: 10px;
+    border: 0;
+    text-align: center;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#request-form #message {
+    width: 45%;
+    height: 10%;
+    background-color: red;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    border-radius: 10px;
+    border: 0;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    background-color: var(--little-containers);
+}
+
+#request-form #message img {
+    width: auto;
+    height: 40px;
 }
 
 #request-form #submitBtn {

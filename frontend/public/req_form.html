@@ -25,7 +25,8 @@
                         {% if place_name != "Bloodbank" %}
                             <i><a href="" id="request_form_page">Request Blood</a></i>
                         {% endif %}
-                        <i><a href="" id="logout">Logout</a></i>                    </ul>
+                        <i><a href="" id="logout">Logout</a></i>
+                    </ul>
                 </div>
             </div>
         </nav>
@@ -35,21 +36,18 @@
                     <div id="req-form-cont" class="req-box">
                         <form action="" id="request-form">
                             <h2>Request Blood Bags</h2>
+                            <div id="message">
+                                <img src="/static/src/assets/images/request-done.png" alt="Request-done">
+                                <span>Your request has been sent successfully.</span>
+                            </div>
                             <div class="boxes">
                                 <div class="box">
                                     <label for="">Hospital Name:</label>
-                                    <select name="" id="">
-                                        <option value="">Cairo Hospital</option>
-                                        <option value="">Ain Shams Hospital</option>
-                                        <option value="">Giza Hospital</option>
-                                        <option value="">Helwan Hospital</option>
-                                    </select>
+                                    <span>{{ place_name }}</span>
                                 </div>
                                 <div class="box">
                                     <label for="">Requesting From:</label>
-                                    <select name="" id="">
-                                        <option value="">Cairo Blood Bank</option>
-                                    </select>
+                                    <span>Cairo Blood Bank</span>
                                 </div>
                                 <div class="box">
                                     <label for="">Blood Type</label>
