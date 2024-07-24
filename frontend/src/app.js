@@ -15,8 +15,8 @@ $(document).ready(function() {
   var url_inventory = `${authority}/inventory`
   var url_requests = `${authority}/requests`
   console.log("APP.JS")
-  console.log(route)
-  console.log(url_dashboard) // cairo_hospital/dashboard
+  // console.log(route)
+  // console.log(url_dashboard) // cairo_hospital/dashboard
 
   const routes = {
       [`${url_dashboard}`]: { page: 'dashboard', style: 'dashboard.css' },   // Navigating to any Dashboard page dynamically

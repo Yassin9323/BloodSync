@@ -1,10 +1,16 @@
 import { setupAjax, initializeRouteHandling } from './utils.js';
 
 $(document).ready(function() {
+    const logoutMessage = localStorage.getItem('logoutMessage');
+        if (logoutMessage) {
+            alert(logoutMessage);
+            localStorage.removeItem('logoutMessage'); // Clear the message
+        }
     // Submit login form
+       const x = initializeRouteHandling();
     $(document).on('submit', '#login-form', function(event) {
         event.preventDefault();
-
+        
         var email = $('#email').val();
         var password = $('#password').val();
         var emailError = '';
@@ -40,7 +46,7 @@ $(document).ready(function() {
             data: $.param({ username: email, password: password }),
             success: function(response) {
                 if (response.access_token) {
-                    console.log("Access token received:", response.access_token); // Debugging line
+                    // console.log("Access token received:", response.access_token); // Debugging line
                     localStorage.setItem('accessToken', response.access_token);
                     
                     var token = parseJwt(response.access_token);
@@ -98,4 +104,5 @@ $(document).ready(function() {
 
         return JSON.parse(jsonPayload);
     }
+    
 });

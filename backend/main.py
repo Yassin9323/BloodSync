@@ -39,7 +39,7 @@ def index():
 @app.get("/login", response_class=HTMLResponse)
 async def login_page(request: Request):
     print("Login Page")
-    return templates.TemplateResponse("index.html", {"request": request})
+    return templates.TemplateResponse("login.html", {"request": request})
 
 @app.get("/register", response_class=HTMLResponse)
 async def register_page(request: Request):

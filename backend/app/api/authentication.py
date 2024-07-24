@@ -10,10 +10,11 @@ from app.core import crud
 from fastapi.responses import JSONResponse
 from pydantic import BaseModel, EmailStr
 from fastapi.security import OAuth2PasswordRequestForm
-from app.utils import token
+from app.utils import token, oauth2
 
 
 router = APIRouter(tags=["Authentication"])
+router.include_router(oauth2.router)
 
 
 @router.post('/login')
@@ -81,8 +82,3 @@ async def create_user(
     except Exception as e:
         db.rollback()
         raise HTTPException(status_code=500, detail=str(e))
-
-
-@router.get("/logout")
-def logout():
-    pass

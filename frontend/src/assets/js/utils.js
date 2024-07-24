@@ -3,11 +3,12 @@ export function setupAjax() {
     $.ajaxSetup({
         beforeSend: function(xhr) {
             var token = localStorage.getItem('accessToken');
-            if (token) {
-                xhr.setRequestHeader('Authorization', 'Bearer ' + token);
+            if (!token) {
+                // xhr.setRequestHeader('Authorization', 'Bearer ' + token);
+                window.location.href = '/login';
             }
             else{
-                window.location.href = '/login';
+                xhr.setRequestHeader('Authorization', 'Bearer ' + token);
             }
         }
     });
@@ -30,15 +31,15 @@ export function initializeRouteHandling() {
         authority = route_list[0];
 
     } else if (route_list[0] === "bloodbank" && role === "hospital-admin") {
-        window.location.href = '/login';
-        alert("You are not authorized to do this action");
+        window.location.href = `/${place_name}/dashboard`;
+        // alert("You are not authorized to do this action");
         
     } else if (route_list[0] !== "bloodbank" && role === "blood-bank-admin") {
         if (route_list[0] === "login" || route_list[0] === "register" || route_list[0] === "home" ){
             //pass
         }else{
-            window.location.href = '/login';
-            alert("You are not authorized to do this action");
+            window.location.href = `/${place_name}/dashboard`;
+            // alert("You are not authorized to do this action");
         }
         
 
@@ -51,8 +52,8 @@ export function initializeRouteHandling() {
             }else{
                 // console.log(route_list[0]);
                 // console.log("3")
-                window.location.href = '/login';
-                alert("You are not authorized to do this action");
+                window.location.href = `/${place_name}/dashboard`;
+                // alert("You are not authorized to do this action");
             }
         }
     }
