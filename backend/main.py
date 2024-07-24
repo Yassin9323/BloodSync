@@ -33,9 +33,10 @@ app.mount("/static", StaticFiles(directory="../frontend"), name="static")
 templates = Jinja2Templates(directory="../frontend/public")
 
 
-@app.get("/")
-def index():
-    return {"data": "index page"}
+@app.get("/", response_class=HTMLResponse)
+def index(request: Request):
+    print("Landing Page")
+    return templates.TemplateResponse("landing-page.html", {"request": request})
 
 @app.get("/login", response_class=HTMLResponse)
 async def login_page(request: Request):
