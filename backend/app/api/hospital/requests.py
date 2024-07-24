@@ -10,6 +10,7 @@ from app.models.blood_banks import BloodBank
 from app.models.blood_types import BloodType
 from app.schemas import user
 from app.utils import oauth2
+from app.api.websockets import manager
 
 router = APIRouter(prefix="/{name}_hospital/requests", tags=["Hospital"])
 
@@ -33,6 +34,7 @@ async def pending_hospital_requests(name, db: Session = Depends(get_db), current
          }
         for req in pending_reqs
     ]
+    await manager.broadcast("pending_reqs_update")
     return {"pending_requests": pending_requests}    
 
 
@@ -49,14 +51,15 @@ async def total_hospital_requests(name, db: Session = Depends(get_db), current_u
         )
 
     total_requests = [
-        {"hospital name": req.hospitals.name,
-         "req.num": req.id,
-         "blood type": req.blood_types.type,
+        {"hospital_name": req.hospitals.name,
+         "req_num": req.id,
+         "blood_type": req.blood_types.type,
          "units": req.units,
          "status": req.status
          }
         for req in total_reqs
     ]
+    await manager.broadcast("total_reqs_update")
     return {"total_requests": total_requests}    
 
 
@@ -90,5 +93,6 @@ async def create_request(
 
     # Save Request
     crud.save(new_request, db)
-
+    
+    await manager.broadcast("create_reqs_update")
     return {"request_id": new_request.id} 

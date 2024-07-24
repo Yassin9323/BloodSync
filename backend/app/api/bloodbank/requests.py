@@ -10,6 +10,7 @@ from app.models.transactions import Transaction
 from app.models.hospitals_Inventory import HospitalInventory
 from app.schemas import user
 from app.utils import oauth2
+from app.api.websockets import manager
 
 
 router = APIRouter(prefix="/requests")
@@ -34,6 +35,8 @@ async def requests(db: Session = Depends(get_db), current_user: user.User = Depe
          }
         for req in pending_reqs
     ]
+    
+    await manager.broadcast("pending_reqs_update")
     return {"pending_requests": pending_requests}
 
 
@@ -55,6 +58,8 @@ async def requests(db: Session = Depends(get_db), current_user: user.User = Depe
          }
         for req in total_reqs
     ]
+    
+    await manager.broadcast("total_reqs_update")
     return {"total_requests": total_requests}
 
 # Define a Pydantic model
@@ -110,7 +115,7 @@ async def update_request_status(
     db.refresh(bloodbank_inv)
     db.refresh(hospital_inv)
 
-    
+    await manager.broadcast("update_status_update")
     return {"details":{
             "status": request.status,
             "request_id": request.id

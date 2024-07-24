@@ -4,13 +4,45 @@ $(document).ready(function() {
     setupAjax();
     const authority = initializeRouteHandling();
 
+     // WebSockets Realtime 
+     const websocket = new WebSocket('ws://127.0.0.1:8000/ws/requests');
+
+     websocket.onmessage = function(event) {
+         const message = event.data;
+        //  console.log(`WebSocket message received: ${message}`);
+ 
+         switch (message) {
+             case "pending_reqs_update":
+                getPending_requests();
+                 break;
+             case "total_reqs_update":
+                getTotal_requests();
+                 break;
+             case "update_status_update":
+                updateRequest_status();
+                 break;
+             default:
+                 console.warn(`Unknown WebSocket message: ${message}`);
+         }
+     };
+ 
+     websocket.onclose = function() {
+         console.log('WebSocket connection closed');
+         // Optional: Implement reconnection logic here
+     };
+ 
+     websocket.onerror = function(error) {
+         console.log('WebSocket error: ' + error);
+         // Optional: Implement error handling or reconnection logic here
+     };
+
     // Function to access the Bloodbank_inventory endpoint
     function getPending_requests() {
         $.ajax({
             url: `http://127.0.0.1:8000/${authority}/requests/pending`,
             type: `GET`,
             success: function(response) {
-                console.log(`${authority} pending requests :`, response);
+                // console.log(`${authority} pending requests :`, response);
                 // Handle the response data
 
                 const req_pending = $('#req_pending');
@@ -49,13 +81,13 @@ $(document).ready(function() {
             url: `http://127.0.0.1:8000/${authority}/requests/total`,
             type: `GET`,
             success: function(response) {
-                console.log(`${authority} total requests :`, response);
+                // console.log(`${authority} total requests :`, response);
                 // Handle the response data
 
                 const req_history = $('#req_history');
                 req_history.empty(); // Clear existing table rows
                 const data = response.total_requests
-
+                // console.log(data)
                 for(let i = 0; i < data.length; i++){
                     const firstItem = data[i];
                     const row = `<div class="req-history">

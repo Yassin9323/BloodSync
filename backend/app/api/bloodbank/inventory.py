@@ -11,6 +11,7 @@ from app.models.transactions import Transaction
 from app.models.hospitals_Inventory import HospitalInventory
 from app.schemas import user
 from app.utils import oauth2
+from app.api.websockets import manager
 
 router = APIRouter(prefix="/inventory")
 
@@ -26,6 +27,8 @@ async def bloodbank_inventory(db: Session = Depends(get_db), current_user: user.
         for inv in bloodbank_inventories
     ]
     name2 =  cairo_bloodbank.name
+    
+    await manager.broadcast("inventory_update")
     return {"inventory":{
         "name": name2,
         "inventory_data": inventory_data}        
@@ -41,7 +44,8 @@ async def get_hospital_inventory(hospital_name: str, db: Session = Depends(get_d
         {"blood_type": inv.blood_types.type, "available_units": inv.units}
         for inv in hospital_inventories
     ]
-
+    
+    await manager.broadcast("inventory_hospital_update")
     return {"details":{
         "name": hospital.name,
         "inventory": inventory_data
